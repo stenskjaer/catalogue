@@ -101,6 +101,7 @@ class Manuscript(models.Model):
     inspections = models.ManyToManyField('Inspection', blank=True)
     content = models.ManyToManyField('Text', blank=True)
     literature = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
     # reproduction = models.
 
     def __str__(self):
