@@ -58,18 +58,6 @@ class OnlineMaterial(models.Model):
     url = models.URLField(blank=False)
     manuscript = models.ForeignKey('Manuscript', blank=False)
 
-class Inspection(models.Model):
-    INSPECTION_TYPES = (
-        ('digital', 'Digital reproduction'),
-        ('situ', 'In situ')
-    )
-    inspector = models.CharField(max_length=255)
-    inspection_type = models.CharField(max_length=10, choices=INSPECTION_TYPES)
-    inspection_date = models.DateField()
-
-    def __str__(self):
-        return '%s, %s (%s)' % (self.inspector, self.inspection_type, self.inspection_date)
-    
 
 class Reproduction(models.Model):
     MEDIA_TYPES = (
@@ -109,6 +97,20 @@ class ManuscriptContent(models.Model):
     note = models.CharField(max_length=120, blank=True, null=True)
 
 
+class ManuscriptInspection(models.Model):
+    INSPECTION_TYPES = (
+        ('digital', 'Digital reproduction'),
+        ('situ', 'In situ')
+    )
+    manuscript = models.ForeignKey('Manuscript')
+    inspector = models.CharField(max_length=255)
+    inspection_type = models.CharField(max_length=10, choices=INSPECTION_TYPES)
+    inspection_date = models.DateField()
+
+    def __str__(self):
+        return '%s by %s' % (self.inspection_date, self.inspector)
+
+    
 class Manuscript(models.Model):
     MATERIALS = (
         ('parcment', 'Parchment'),
@@ -144,7 +146,6 @@ class Manuscript(models.Model):
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
     folios = models.CharField(max_length=20, blank=True)
     layout = models.TextField(blank=True, null=True)
-    inspections = models.ManyToManyField('Inspection', blank=True)
     catalogue = models.TextField(max_length=255, blank=True, null=True)
     literature = models.TextField(blank=True)
     notes = models.TextField(blank=True)

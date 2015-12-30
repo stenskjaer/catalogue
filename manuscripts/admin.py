@@ -7,15 +7,19 @@ class UrlInline(admin.TabularInline):
     model = OnlineMaterial
     extra = 1
 
+class InspectionInline(admin.TabularInline):
+    model = ManuscriptInspection
+    extra = 1
 
 class ContentInline(admin.TabularInline):
     model = ManuscriptContent
-    extra = 3
+    extra = 1
 
 
 class ManuscriptAdmin(admin.ModelAdmin):
     form = ManuscriptForm
     inlines = [
+        InspectionInline,
         UrlInline,
         ContentInline,
     ]
@@ -30,7 +34,6 @@ admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(Country)
 admin.site.register(Town)
 admin.site.register(Library)
-admin.site.register(Inspection)
 admin.site.register(Reproduction)
 admin.site.register(Archive)
 
