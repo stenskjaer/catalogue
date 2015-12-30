@@ -1,10 +1,25 @@
 from django.contrib import admin
 
-from .models import Text, Author, Manuscript, Country, Town, Library, Inspection, Reproductions, Archive
+from .models import *
 from .forms import ManuscriptForm, TextForm
+
+class UrlInline(admin.TabularInline):
+    model = OnlineMaterial
+    extra = 1
+
+
+class ContentInline(admin.TabularInline):
+    model = ManuscriptContent
+    extra = 3
+
 
 class ManuscriptAdmin(admin.ModelAdmin):
     form = ManuscriptForm
+    inlines = [
+        UrlInline,
+        ContentInline,
+    ]
+
 
 class TextAdmin(admin.ModelAdmin):
     form = TextForm
@@ -16,7 +31,7 @@ admin.site.register(Country)
 admin.site.register(Town)
 admin.site.register(Library)
 admin.site.register(Inspection)
-admin.site.register(Reproductions)
+admin.site.register(Reproduction)
 admin.site.register(Archive)
 
 

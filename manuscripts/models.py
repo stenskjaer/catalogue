@@ -1,5 +1,6 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
+from django_countries.fields import CountryField
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
@@ -12,7 +13,9 @@ class Author(models.Model):
 class Text(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
-    date = models.CharField(max_length=50)
+    title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
+    date = models.CharField(max_length=50, blank=True)
+    translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     source = models.ManyToManyField('Manuscript', blank=True)
 
     def __str__(self):
@@ -20,10 +23,10 @@ class Text(models.Model):
 
 
 class Country(models.Model):
-    country_name = models.CharField(max_length=255)
+    country = CountryField()
 
     def __str__(self):
-        return self.country_name
+        return str(self.country.name)
 
 
 class Town(models.Model):
@@ -35,12 +38,24 @@ class Town(models.Model):
 
 
 class Library(models.Model):
-    library_town = models.ForeignKey(Town)
+    library_country = models.ForeignKey(Country)
+    library_town = ChainedForeignKey(
+        Town,
+        chained_field = 'library_country',
+        chained_model_field = 'country',
+        show_all = True,
+        auto_choose = True,
+        related_name = 'library_town'
+    )
     library_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.library_name
 
+
+class OnlineMaterial(models.Model):
+    url = models.URLField(blank=False)
+    manuscript = models.ForeignKey('Manuscript', blank=False)
 
 class Inspection(models.Model):
     INSPECTION_TYPES = (
@@ -55,7 +70,7 @@ class Inspection(models.Model):
         return '%s, %s (%s)' % (self.inspector, self.inspection_type, self.inspection_date)
     
 
-class Reproductions(models.Model):
+class Reproduction(models.Model):
     MEDIA_TYPES = (
         ('digital', 'Digital'),
         ('microfilm', 'Micro film'),
@@ -85,21 +100,17 @@ class Archive(models.Model):
     def __str__(self):
         return '%s' % (self.archive_name)
 
+
+class ManuscriptContent(models.Model):
+    manuscript = models.ForeignKey('Manuscript')
+    content = models.ForeignKey('Text')
+    folios = models.CharField(max_length=50, blank=True, null=True)
+
+
 class Manuscript(models.Model):
     MATERIALS = (
         ('parcment', 'Parchment'),
         ('paper', 'Paper')
-    )
-    PERIODS = (
-        ('13.2', '1226-1250'),
-        ('13.3', '1250-1275'),
-        ('13.4', '1276-1300'),
-        ('14.1', '1301-1325'),
-        ('14.2', '1326-1350'),
-        ('14.3', '1351-1375'),
-        ('14.4', '1376-1400'),
-        ('15.1', '1401-1425'),
-        ('15.2', '1426-1450')
     )
     
     country = models.ForeignKey(Country, blank=False, null=True)
@@ -122,17 +133,20 @@ class Manuscript(models.Model):
     shelfmark = models.CharField(max_length=100, blank=True)
     number = models.CharField(max_length=30, blank=True)
     olim = models.CharField(max_length=100, blank=True)
-    period = models.CharField(max_length=100, blank=True, choices=PERIODS)
+    date_earliest = models.CharField(max_length=100, blank=True, null=True)
+    date_latest = models.CharField(max_length=100, blank=True, null=True)
     date = models.CharField(max_length=50, blank=True)
     material = models.CharField(max_length=50, choices=MATERIALS, blank=True)
-    width = models.CharField(max_length=50, blank=True)
-    height = models.CharField(max_length=50, blank=True)
+    width = models.FloatField('Width (in mm.)', blank=True, null=True)
+    height = models.FloatField('Height (in mm.)', blank=True, null=True)
+    dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
     folios = models.CharField(max_length=20, blank=True)
+    layout = models.TextField(blank=True, null=True)
     inspections = models.ManyToManyField('Inspection', blank=True)
-    content = models.ManyToManyField('Text', blank=True)
+    catalogue = models.TextField(max_length=255, blank=True, null=True)
     literature = models.TextField(blank=True)
     notes = models.TextField(blank=True)
-    reproductions = models.ManyToManyField('Reproductions', blank=True)
+    reproductions = models.ManyToManyField('Reproduction', blank=True)
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
