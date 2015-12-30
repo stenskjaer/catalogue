@@ -4,7 +4,8 @@ from django_countries.fields import CountryField
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
-    date = models.CharField(max_length=50)
+    birth = models.CharField(max_length=50, blank=True, null=True)
+    death = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name
