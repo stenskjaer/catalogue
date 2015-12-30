@@ -10,6 +10,7 @@ class ManuscriptForm(forms.ModelForm):
         widgets = {
             'inspections': FilteredSelectMultiple('Inspection', False),
             'content': FilteredSelectMultiple('Text', False),
+            'reproductions': FilteredSelectMultiple('Text', False),
         }
 
 

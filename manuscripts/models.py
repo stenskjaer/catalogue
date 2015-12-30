@@ -55,6 +55,36 @@ class Inspection(models.Model):
         return '%s, %s (%s)' % (self.inspector, self.inspection_type, self.inspection_date)
     
 
+class Reproductions(models.Model):
+    MEDIA_TYPES = (
+        ('digital', 'Digital'),
+        ('microfilm', 'Micro film'),
+    )
+    
+    archive = models.ForeignKey('Archive', max_length=255)
+    media = models.CharField(max_length=100, choices=MEDIA_TYPES)
+    reference = models.CharField(max_length=255, blank=True, null=True)
+    url = models.URLField(blank=True, null=True)
+    
+    def __str__(self):
+        return '%s %s' % (self.archive, self.reference)
+        
+
+class Archive(models.Model):
+    archive_name = models.CharField(max_length=255)
+    country = models.ForeignKey(Country, blank=False, null=True)
+    town = ChainedForeignKey(
+        Town,
+        chained_field = 'country',
+        chained_model_field = 'country',
+        show_all = True,
+        auto_choose = True,
+        related_name = 'archive_town'
+    )
+
+    def __str__(self):
+        return '%s' % (self.archive_name)
+
 class Manuscript(models.Model):
     MATERIALS = (
         ('parcment', 'Parchment'),
@@ -102,7 +132,7 @@ class Manuscript(models.Model):
     content = models.ManyToManyField('Text', blank=True)
     literature = models.TextField(blank=True)
     notes = models.TextField(blank=True)
-    # reproduction = models.
+    reproductions = models.ManyToManyField('Reproductions', blank=True)
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
