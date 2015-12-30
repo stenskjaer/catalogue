@@ -15,6 +15,10 @@ class ContentInline(admin.TabularInline):
     model = ManuscriptContent
     extra = 1
 
+class ReproductionInline(admin.TabularInline):
+    model = Reproduction
+    extra = 1
+
 
 class ManuscriptAdmin(admin.ModelAdmin):
     form = ManuscriptForm
@@ -22,6 +26,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
         InspectionInline,
         UrlInline,
         ContentInline,
+        ReproductionInline,
     ]
 
 

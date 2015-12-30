@@ -64,7 +64,8 @@ class Reproduction(models.Model):
         ('digital', 'Digital'),
         ('microfilm', 'Micro film'),
     )
-    
+
+    manuscript = models.ForeignKey('Manuscript')
     archive = models.ForeignKey('Archive', max_length=255)
     media = models.CharField(max_length=100, choices=MEDIA_TYPES)
     reference = models.CharField(max_length=255, blank=True, null=True)
@@ -148,8 +149,6 @@ class Manuscript(models.Model):
     layout = models.TextField(blank=True, null=True)
     literature = models.TextField(blank=True)
     notes = models.TextField(blank=True)
-    reproductions = models.ManyToManyField('Reproduction', blank=True)
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
-    
