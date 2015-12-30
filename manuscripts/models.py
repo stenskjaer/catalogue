@@ -146,7 +146,6 @@ class Manuscript(models.Model):
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
     folios = models.CharField(max_length=20, blank=True)
     layout = models.TextField(blank=True, null=True)
-    catalogue = models.TextField(max_length=255, blank=True, null=True)
     literature = models.TextField(blank=True)
     notes = models.TextField(blank=True)
     reproductions = models.ManyToManyField('Reproduction', blank=True)
