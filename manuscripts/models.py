@@ -19,7 +19,7 @@ class Text(models.Model):
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
-    date = models.CharField(max_length=50, blank=True)
+    date = models.CharField(max_length=50, null=True, blank=True)
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
@@ -61,8 +61,8 @@ class Library(models.Model):
 
 
 class OnlineMaterial(models.Model):
-    url = models.URLField(blank=False)
-    manuscript = models.ForeignKey('Manuscript', blank=False)
+    url = models.URLField(null=True, blank=False)
+    manuscript = models.ForeignKey('Manuscript', null=True, blank=False)
 
 
 class Reproduction(models.Model):
@@ -141,20 +141,20 @@ class Manuscript(models.Model):
         auto_choose = True,
         related_name = 'library'
     )
-    shelfmark = models.CharField(max_length=100, blank=True)
-    number = models.CharField(max_length=30, blank=True)
-    olim = models.CharField(max_length=100, blank=True)
+    shelfmark = models.CharField(max_length=100, null=True, blank=True)
+    number = models.CharField(max_length=30, null=True, blank=True)
+    olim = models.CharField(max_length=100, null=True, blank=True)
     date_earliest = models.CharField(max_length=100, blank=True, null=True)
     date_latest = models.CharField(max_length=100, blank=True, null=True)
-    date = models.CharField(max_length=50, blank=True)
-    material = models.CharField(max_length=50, choices=MATERIALS, blank=True)
+    date = models.CharField(max_length=50, null=True, blank=True)
+    material = models.CharField(max_length=50, choices=MATERIALS, null=True, blank=True)
     width = models.FloatField('Width (in mm.)', blank=True, null=True)
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
-    folios = models.CharField(max_length=20, blank=True)
+    folios = models.CharField(max_length=20, null=True, blank=True)
     layout = models.TextField(blank=True, null=True)
-    literature = models.TextField(blank=True)
-    notes = models.TextField(blank=True)
+    literature = models.TextField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
