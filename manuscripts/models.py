@@ -7,6 +7,7 @@ class Author(models.Model):
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
     floruit = models.CharField(max_length=50, blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -21,6 +22,7 @@ class Text(models.Model):
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return '%s by %s' % (self.title, self.author)
