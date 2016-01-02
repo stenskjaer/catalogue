@@ -21,7 +21,6 @@ class Text(models.Model):
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
-    source = models.ManyToManyField('Manuscript', blank=True)
 
     def __str__(self):
         return '%s by %s' % (self.title, self.author)

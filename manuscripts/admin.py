@@ -32,6 +32,9 @@ class ManuscriptAdmin(admin.ModelAdmin):
 
 class TextAdmin(admin.ModelAdmin):
     form = TextForm
+    inlines = [
+        ContentInline,
+    ]
 
 admin.site.register(Text, TextAdmin)
 admin.site.register(Author)
