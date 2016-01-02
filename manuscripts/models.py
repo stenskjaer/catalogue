@@ -6,6 +6,7 @@ class Author(models.Model):
     name = models.CharField(max_length=200)
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
+    floruit = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name
