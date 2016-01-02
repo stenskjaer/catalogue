@@ -7,6 +7,7 @@ class Author(models.Model):
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
     floruit = models.CharField(max_length=50, blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
     literature = models.TextField(blank=True, null=True)
 
     def __str__(self):
