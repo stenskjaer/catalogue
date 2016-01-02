@@ -13,12 +13,13 @@ class Author(models.Model):
 
 class Text(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     date = models.CharField(max_length=50, blank=True)
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
-    translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
     source = models.ManyToManyField('Manuscript', blank=True)
 
     def __str__(self):
