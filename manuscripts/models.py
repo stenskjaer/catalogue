@@ -68,7 +68,7 @@ class Reproduction(models.Model):
     manuscript = models.ForeignKey('Manuscript')
     archive = models.ForeignKey('Archive', max_length=255)
     media = models.CharField(max_length=100, choices=MEDIA_TYPES)
-    reference = models.CharField(max_length=255, blank=True, null=True)
+    referencenumber = models.CharField(max_length=255, blank=True, null=True)
     url = models.URLField(blank=True, null=True)
     
     def __str__(self):
