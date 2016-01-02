@@ -41,6 +41,3 @@ admin.site.register(Town)
 admin.site.register(Library)
 admin.site.register(Reproduction)
 admin.site.register(Archive)
-
-
-

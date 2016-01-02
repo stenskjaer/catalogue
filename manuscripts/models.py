@@ -16,6 +16,8 @@ class Text(models.Model):
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     date = models.CharField(max_length=50, blank=True)
+    incipit = models.TextField(max_length=1020, blank=True, null=True)
+    explicit = models.TextField(max_length=1020, blank=True, null=True)
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     source = models.ManyToManyField('Manuscript', blank=True)
 
@@ -72,8 +74,8 @@ class Reproduction(models.Model):
     url = models.URLField(blank=True, null=True)
     
     def __str__(self):
-        return '%s %s' % (self.archive, self.reference)
-        
+        return '%s %s' % (self.archive, self.referencenumber)
+
 
 class Archive(models.Model):
     archive_name = models.CharField(max_length=255)

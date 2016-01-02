@@ -18,6 +18,8 @@ class TextForm(forms.ModelForm):
         model = Text
         fields = '__all__'
         widgets = {
+            'incipit': forms.Textarea(attrs={'rows':2, 'cols':40}),
+            'explicit': forms.Textarea(attrs={'rows':2, 'cols':40}),
             'source': FilteredSelectMultiple('Manuscript', True),
         }
 
