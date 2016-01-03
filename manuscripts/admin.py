@@ -30,10 +30,14 @@ class ManuscriptAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
-        'country',
-        'town',
+        'library',
         'shelfmark',
-        'number'
+        'number',
+        'town',
+    ]
+
+    list_filter = [
+        'country',
     ]
 
 
