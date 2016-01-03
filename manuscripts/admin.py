@@ -29,12 +29,26 @@ class ManuscriptAdmin(admin.ModelAdmin):
         ReproductionInline,
     ]
 
+    list_display = [
+        'country',
+        'town',
+        'shelfmark',
+        'number'
+    ]
+
 
 class TextAdmin(admin.ModelAdmin):
     form = TextForm
     inlines = [
         ContentInline,
     ]
+
+    list_display = [
+        'author',
+        'title',
+        'date',
+    ]
+
 
 admin.site.register(Text, TextAdmin)
 admin.site.register(Author)
