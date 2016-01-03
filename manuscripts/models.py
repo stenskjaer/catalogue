@@ -83,14 +83,16 @@ class Reproduction(models.Model):
 
 class Archive(models.Model):
     archive_name = models.CharField(max_length=255)
-    country = models.ForeignKey(Country, blank=False, null=True)
+    country = models.ForeignKey(Country, blank=True, null=True)
     town = ChainedForeignKey(
         Town,
         chained_field = 'country',
         chained_model_field = 'country',
         show_all = True,
         auto_choose = True,
-        related_name = 'archive_town'
+        related_name = 'archive_town',
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
