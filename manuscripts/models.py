@@ -15,7 +15,15 @@ class Author(models.Model):
     
 
 class Text(models.Model):
+    AUTHORSHIP = [
+        ('certain', 'Certain'),
+        ('possible', 'Possible'),
+        ('disputed', 'Disputed'),
+        ('dubious', 'Dubious'),
+        ('untrue', 'Untrue'),
+    ]
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
