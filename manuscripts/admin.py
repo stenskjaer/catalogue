@@ -48,14 +48,14 @@ class TextAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
-        'author',
+        'commentator',
         'title',
         'date',
     ]
 
 
-admin.site.register(Text, TextAdmin)
-admin.site.register(Commentary)
+admin.site.register(Commentary, TextAdmin)
+admin.site.register(Text)
 admin.site.register(Commentator)
 admin.site.register(CommentaryType)
 admin.site.register(Author)

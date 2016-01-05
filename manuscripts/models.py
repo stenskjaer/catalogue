@@ -35,12 +35,12 @@ class Commentary(models.Model):
         ('dubious', 'Dubious'),
         ('untrue', 'Untrue'),
     ]
-    commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
-    commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
-    commentator = models.ForeignKey('Commentator')
-    authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
+    commentator = models.ForeignKey('Commentator', blank=False)
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
+    authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
+    commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
+    commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
@@ -49,7 +49,7 @@ class Commentary(models.Model):
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return '%s by %s' % (self.title, self.author)
+        return '%s by %s' % (self.title, self.commentator)
 
     
 class Text(models.Model):
@@ -62,7 +62,7 @@ class Text(models.Model):
     ]
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
     commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey('Author', on_delete=models.CASCADE)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)
@@ -158,7 +158,7 @@ class Archive(models.Model):
 
 class ManuscriptContent(models.Model):
     manuscript = models.ForeignKey('Manuscript')
-    content = models.ForeignKey('Text')
+    content = models.ForeignKey('Commentary')
     folios = models.CharField(max_length=20, blank=True, null=True)
     note = models.CharField(max_length=120, blank=True, null=True)
 
