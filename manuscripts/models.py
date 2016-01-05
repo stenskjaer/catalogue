@@ -1,17 +1,10 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
-from multiselectfield import MultiSelectField
+
 
 class Author(models.Model):
-    AUTHOR_ROLES = [
-        (1, 'Commentator'),
-        (2, 'Authority'),
-        (3, 'Translator'),
-    ]
-    
     name = models.CharField(max_length=200)
-    author_role = MultiSelectField(choices=AUTHOR_ROLES, default=2)
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
     floruit = models.CharField(max_length=50, blank=True, null=True)
