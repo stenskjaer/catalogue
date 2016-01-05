@@ -11,20 +11,22 @@ class Author(models.Model):
     note = models.TextField(blank=True, null=True)
     literature = models.TextField(blank=True, null=True)
 
-    def __str__(self):
-        return self.name
-
-
-class Commentator(models.Model):
-    name = models.CharField(max_length=200)
-    birth = models.CharField(max_length=50, blank=True, null=True)
-    death = models.CharField(max_length=50, blank=True, null=True)
-    floruit = models.CharField(max_length=50, blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
-    literature = models.TextField(blank=True, null=True)
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return self.name
+
+class Commentator(Author):
+    pass
+
+
+class Authority(Author):
+    pass
+
+
+class Translator(Author):
+    pass
 
 
 class Commentary(models.Model):
@@ -62,9 +64,9 @@ class Text(models.Model):
     ]
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
     commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
-    author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    author = models.ForeignKey('Authority', on_delete=models.CASCADE)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
-    translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
+    translator = models.ForeignKey('Translator', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
