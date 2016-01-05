@@ -22,6 +22,8 @@ class Text(models.Model):
         ('dubious', 'Dubious'),
         ('untrue', 'Untrue'),
     ]
+    commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
+    commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
@@ -31,10 +33,18 @@ class Text(models.Model):
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
+    commented_on = models.BooleanField(default=False)
     literature = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return '%s by %s' % (self.title, self.author)
+
+
+class CommentaryType(models.Model):
+    commentary_type = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.commentary_type
 
 
 class Country(models.Model):
