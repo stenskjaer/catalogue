@@ -13,7 +13,6 @@ class Author(models.Model):
     def __str__(self):
         return self.name
     
-
 class Text(models.Model):
     AUTHORSHIP = [
         ('certain', 'Certain'),
@@ -24,7 +23,7 @@ class Text(models.Model):
     ]
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
     commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey('Author', on_delete=models.CASCADE)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)
