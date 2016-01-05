@@ -35,7 +35,7 @@ class Text(models.Model):
     note = models.TextField(blank=True, null=True)
     commented_on = models.BooleanField(default=False)
     literature = models.TextField(blank=True, null=True)
-    mora_reference = models.CharField(max_length=25, blank=True, null=True)
+    mora_reference = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return '%s by %s' % (self.title, self.author)
