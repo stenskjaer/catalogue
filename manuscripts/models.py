@@ -1,8 +1,28 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
+from multiselectfield import MultiSelectField
 
 class Author(models.Model):
+    AUTHOR_ROLES = [
+        (1, 'Commentator'),
+        (2, 'Authority'),
+        (3, 'Translator'),
+    ]
+    
+    name = models.CharField(max_length=200)
+    author_role = MultiSelectField(choices=AUTHOR_ROLES, default=2)
+    birth = models.CharField(max_length=50, blank=True, null=True)
+    death = models.CharField(max_length=50, blank=True, null=True)
+    floruit = models.CharField(max_length=50, blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Commentator(models.Model):
     name = models.CharField(max_length=200)
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
@@ -12,6 +32,32 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Commentary(models.Model):
+    AUTHORSHIP = [
+        ('certain', 'Certain'),
+        ('possible', 'Possible'),
+        ('disputed', 'Disputed'),
+        ('dubious', 'Dubious'),
+        ('untrue', 'Untrue'),
+    ]
+    commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
+    commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
+    commentator = models.ForeignKey('Commentator')
+    authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
+    title = models.CharField(max_length=500)
+    title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
+    date = models.CharField(max_length=50, null=True, blank=True)
+    incipit = models.TextField(max_length=1020, blank=True, null=True)
+    explicit = models.TextField(max_length=1020, blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
+    mora_reference = models.CharField(max_length=20, blank=True, null=True)
+
+    def __str__(self):
+        return '%s by %s' % (self.title, self.author)
+
     
 class Text(models.Model):
     AUTHORSHIP = [
@@ -23,7 +69,7 @@ class Text(models.Model):
     ]
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
     commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
-    author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     translator = models.ForeignKey('Author', related_name='translator', blank=True, null=True)
     title = models.CharField(max_length=500)

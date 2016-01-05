@@ -55,6 +55,8 @@ class TextAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Text, TextAdmin)
+admin.site.register(Commentary)
+admin.site.register(Commentator)
 admin.site.register(CommentaryType)
 admin.site.register(Author)
 admin.site.register(Manuscript, ManuscriptAdmin)
