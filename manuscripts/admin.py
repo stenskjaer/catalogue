@@ -25,7 +25,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
     inlines = [
         InspectionInline,
         UrlInline,
-        ContentInline,
+        # ContentInline,
         ReproductionInline,
     ]
 
@@ -43,9 +43,9 @@ class ManuscriptAdmin(admin.ModelAdmin):
 
 class TextAdmin(admin.ModelAdmin):
     form = TextForm
-    inlines = [
-        ContentInline,
-    ]
+    # inlines = [
+    #     ContentInline,
+    # ]
 
     list_display = [
         'commentator',
