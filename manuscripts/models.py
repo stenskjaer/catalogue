@@ -29,7 +29,20 @@ class Translator(Author):
     pass
 
 
-class Commentary(models.Model):
+class BaseText(models.Model):
+    title = models.CharField(max_length=500)
+    title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
+    date = models.CharField(max_length=50, null=True, blank=True)
+    note = models.TextField(blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.title
+    
+class Commentary(BaseText):
     AUTHORSHIP = [
         ('certain', 'Certain'),
         ('possible', 'Possible'),
@@ -38,44 +51,20 @@ class Commentary(models.Model):
         ('untrue', 'Untrue'),
     ]
     commentator = models.ForeignKey('Commentator', blank=False)
-    title = models.CharField(max_length=500)
-    title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
-    commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
-    date = models.CharField(max_length=50, null=True, blank=True)
+    commentary_on = models.ForeignKey('AuthorityText', limit_choices_to={'commented_on': True}, blank=True, null=True)
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
-    literature = models.TextField(blank=True, null=True)
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return '%s by %s' % (self.title, self.commentator)
 
     
-class Text(models.Model):
-    AUTHORSHIP = [
-        ('certain', 'Certain'),
-        ('possible', 'Possible'),
-        ('disputed', 'Disputed'),
-        ('dubious', 'Dubious'),
-        ('untrue', 'Untrue'),
-    ]
-    commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
-    commentary_on = models.ForeignKey('Text', limit_choices_to={'commented_on': True}, blank=True, null=True)
+class AuthorityText(BaseText):
     author = models.ForeignKey('Authority', on_delete=models.CASCADE)
-    authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     translator = models.ForeignKey('Translator', related_name='translator', blank=True, null=True)
-    title = models.CharField(max_length=500)
-    title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
-    date = models.CharField(max_length=50, null=True, blank=True)
-    incipit = models.TextField(max_length=1020, blank=True, null=True)
-    explicit = models.TextField(max_length=1020, blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
-    commented_on = models.BooleanField(default=False)
-    literature = models.TextField(blank=True, null=True)
-    mora_reference = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return '%s by %s' % (self.title, self.author)

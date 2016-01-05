@@ -55,7 +55,7 @@ class TextAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Commentary, TextAdmin)
-admin.site.register(Text)
+admin.site.register(AuthorityText)
 admin.site.register(Commentator)
 admin.site.register(Authority)
 admin.site.register(Translator)
