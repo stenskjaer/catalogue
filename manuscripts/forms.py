@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
-from .models import Manuscript, Commentary
+from .models import Manuscript, Commentary, AuthorityText
 
 class ManuscriptForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,9 @@ class TextForm(forms.ModelForm):
             'source': FilteredSelectMultiple('Manuscript', True),
         }
 
+
+class AuthorityForm(forms.ModelForm):
+    class Meta:
+        model = AuthorityText
+        fields = ['author', 'title', 'title_addon', 'translator', 'date', 'note', 'literature']
+        

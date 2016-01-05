@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import *
-from .forms import ManuscriptForm, TextForm
+from .forms import ManuscriptForm, TextForm, AuthorityForm
 
 class UrlInline(admin.TabularInline):
     model = OnlineMaterial
@@ -54,8 +54,11 @@ class TextAdmin(admin.ModelAdmin):
     ]
 
 
+class AuthorityAdmin(admin.ModelAdmin):
+    form = AuthorityForm
+
 admin.site.register(Commentary, TextAdmin)
-admin.site.register(AuthorityText)
+admin.site.register(AuthorityText, AuthorityAdmin)
 admin.site.register(Commentator)
 admin.site.register(Authority)
 admin.site.register(Translator)
