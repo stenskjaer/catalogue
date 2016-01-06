@@ -14,6 +14,9 @@ class InspectionInline(admin.TabularInline):
 class ContentInline(admin.TabularInline):
     model = ManuscriptContent
     extra = 1
+    related_lookup_fields = {
+        'generic': [['content_type', 'object_id'], ['relation_type', 'relation_id']],
+    }
 
 class ReproductionInline(admin.TabularInline):
     model = Reproduction
@@ -25,7 +28,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
     inlines = [
         InspectionInline,
         UrlInline,
-        # ContentInline,
+        ContentInline,
         ReproductionInline,
     ]
 
