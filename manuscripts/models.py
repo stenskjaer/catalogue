@@ -1,9 +1,21 @@
 from django.db import models
+from django.utils import timezone
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
 
+class BaseModel(models.Model):
+    """
+    All models are based on this abstract model. It adds
+    datetimefields for creation and editing of each model instance.
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
-class Author(models.Model):
+    class Meta:
+        abstract = True
+        
+
+class Author(BaseModel):
     name = models.CharField(max_length=200)
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
@@ -29,7 +41,7 @@ class Translator(Author):
     pass
 
 
-class BaseText(models.Model):
+class BaseText(BaseModel):
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
@@ -69,21 +81,21 @@ class AuthorityText(BaseText):
         return '%s by %s' % (self.title, self.author)
 
 
-class CommentaryType(models.Model):
+class CommentaryType(BaseModel):
     commentary_type = models.CharField(max_length=255)
 
     def __str__(self):
         return self.commentary_type
 
 
-class Country(models.Model):
+class Country(BaseModel):
     country = CountryField()
 
     def __str__(self):
         return str(self.country.name)
 
 
-class Town(models.Model):
+class Town(BaseModel):
     country = models.ForeignKey(Country)
     town_name = models.CharField(max_length=255)
 
@@ -91,7 +103,7 @@ class Town(models.Model):
         return self.town_name
 
 
-class Library(models.Model):
+class Library(BaseModel):
     library_country = models.ForeignKey(Country)
     library_town = ChainedForeignKey(
         Town,
@@ -107,12 +119,12 @@ class Library(models.Model):
         return self.library_name
 
 
-class OnlineMaterial(models.Model):
+class OnlineMaterial(BaseModel):
     url = models.URLField(null=True, blank=False)
     manuscript = models.ForeignKey('Manuscript', null=True, blank=False)
 
 
-class Reproduction(models.Model):
+class Reproduction(BaseModel):
     MEDIA_TYPES = (
         ('digital', 'Digital'),
         ('microfilm', 'Micro film'),
@@ -128,7 +140,7 @@ class Reproduction(models.Model):
         return '%s %s' % (self.archive, self.referencenumber)
 
 
-class Archive(models.Model):
+class Archive(BaseModel):
     archive_name = models.CharField(max_length=255)
     country = models.ForeignKey(Country, blank=True, null=True)
     town = ChainedForeignKey(
@@ -146,14 +158,14 @@ class Archive(models.Model):
         return '%s' % (self.archive_name)
 
 
-class ManuscriptContent(models.Model):
+class ManuscriptContent(BaseModel):
     manuscript = models.ForeignKey('Manuscript')
     content = models.ForeignKey('BaseText', null=True)
     folios = models.CharField(max_length=20, blank=True, null=True)
     note = models.CharField(max_length=120, blank=True, null=True)
 
 
-class ManuscriptInspection(models.Model):
+class ManuscriptInspection(BaseModel):
     INSPECTION_TYPES = (
         ('digital', 'Digital reproduction'),
         ('situ', 'In situ')
@@ -167,7 +179,7 @@ class ManuscriptInspection(models.Model):
         return '%s by %s' % (self.inspection_date, self.inspector)
 
     
-class Manuscript(models.Model):
+class Manuscript(BaseModel):
     MATERIALS = (
         ('parcment', 'Parchment'),
         ('paper', 'Paper')

@@ -34,10 +34,8 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'shelfmark',
         'number',
         'town',
-    ]
-
-    list_filter = [
-        'country',
+        'created',
+        'modified',
     ]
 
 
@@ -51,6 +49,8 @@ class CommentaryAdmin(admin.ModelAdmin):
         'commentator',
         'title',
         'date',
+        'created',
+        'modified',
     ]
 
 
