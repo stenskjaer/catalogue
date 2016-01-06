@@ -53,7 +53,7 @@ class Commentary(BaseText):
     commentator = models.ForeignKey('Commentator', blank=False)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
-    commentary_on = models.ForeignKey('AuthorityText', limit_choices_to={'commented_on': True}, blank=True, null=True)
+    commentary_on = models.ForeignKey('AuthorityText', blank=True, null=True)
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
