@@ -1,8 +1,7 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
-from django.contrib.contenttypes.models import ContentType
+
 
 class Author(models.Model):
     name = models.CharField(max_length=200)
@@ -149,9 +148,6 @@ class Archive(models.Model):
 
 
 class ManuscriptContent(models.Model):
-    content_type = models.ForeignKey(ContentType, blank=True, null=True, related_name="content_type")
-    object_id = models.PositiveIntegerField(blank=True, null=True)
-    content_object = GenericForeignKey("content_type", "object_id")
     manuscript = models.ForeignKey('Manuscript')
     content = models.ForeignKey('Commentary')
     folios = models.CharField(max_length=20, blank=True, null=True)
@@ -208,6 +204,7 @@ class Manuscript(models.Model):
     folios = models.CharField(max_length=20, null=True, blank=True)
     layout = models.TextField(blank=True, null=True)
     literature = models.TextField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)

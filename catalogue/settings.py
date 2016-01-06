@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'manuscripts.apps.ManuscriptsConfig',
     'smart_selects',
     'django_countries',
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -146,5 +145,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
