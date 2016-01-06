@@ -25,6 +25,7 @@ class Author(BaseModel):
 
     class Meta:
         abstract = True
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -34,7 +35,8 @@ class Commentator(Author):
 
 
 class Authority(Author):
-    pass
+    class Meta:
+        verbose_name_plural = 'Authorities'
 
 
 class Translator(Author):
@@ -50,7 +52,7 @@ class BaseText(BaseModel):
 
     def __str__(self):
         return self.title
-    
+
 class Commentary(BaseText):
     AUTHORSHIP = [
         ('certain', 'Certain'),
@@ -69,10 +71,14 @@ class Commentary(BaseText):
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'Commentary'
+        verbose_name_plural = 'Commentaries'
+
     def __str__(self):
         return '%s by %s' % (self.title, self.commentator)
 
-    
+
 class AuthorityText(BaseText):
     author = models.ForeignKey('Authority', on_delete=models.CASCADE)
     translator = models.ForeignKey('Translator', related_name='translator', blank=True, null=True)
@@ -90,6 +96,9 @@ class CommentaryType(BaseModel):
 
 class Country(BaseModel):
     country = CountryField()
+
+    class Meta:
+        verbose_name_plural = 'Countries'
 
     def __str__(self):
         return str(self.country.name)
@@ -115,6 +124,10 @@ class Library(BaseModel):
     )
     library_name = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name_plural = 'Libraries'
+        ordering = ['library_name']
+
     def __str__(self):
         return self.library_name
 
@@ -135,7 +148,7 @@ class Reproduction(BaseModel):
     media = models.CharField(max_length=100, choices=MEDIA_TYPES)
     referencenumber = models.CharField(max_length=255, blank=True, null=True)
     url = models.URLField(blank=True, null=True)
-    
+
     def __str__(self):
         return '%s %s' % (self.archive, self.referencenumber)
 
@@ -178,13 +191,13 @@ class ManuscriptInspection(BaseModel):
     def __str__(self):
         return '%s by %s' % (self.inspection_date, self.inspector)
 
-    
+
 class Manuscript(BaseModel):
     MATERIALS = (
         ('parcment', 'Parchment'),
         ('paper', 'Paper')
     )
-    
+
     country = models.ForeignKey(Country, blank=False, null=True)
     town = ChainedForeignKey(
         Town,
