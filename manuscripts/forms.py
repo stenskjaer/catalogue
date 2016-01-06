@@ -10,7 +10,10 @@ class ManuscriptForm(forms.ModelForm):
 class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
-        fields = ['commentator', 'title', 'title_addon', 'commentary_type', 'commentary_on', 'authorship', 'date', 'incipit', 'explicit', 'note', 'literature', 'mora_reference']
+        fields = [ 'commentator', 'title', 'title_addon',
+                   'commentary_type', 'commentary_on', 'authorship', 'date',
+                   'after', 'before', 'incipit', 'explicit', 'note',
+                   'literature', 'mora_reference' ]
         widgets = {
             'incipit': forms.Textarea(attrs={'rows':2, 'cols':40}),
             'explicit': forms.Textarea(attrs={'rows':2, 'cols':40}),

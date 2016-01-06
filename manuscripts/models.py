@@ -51,6 +51,8 @@ class Commentary(BaseText):
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
     commentary_on = models.ForeignKey('AuthorityText', blank=True, null=True)
+    after = models.CharField('After date (earliest)', max_length=55, blank=True, null=True)
+    before = models.CharField('Before date (latest)', max_length=55, blank=True, null=True)
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
