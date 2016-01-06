@@ -36,9 +36,6 @@ class BaseText(models.Model):
     note = models.TextField(blank=True, null=True)
     literature = models.TextField(blank=True, null=True)
 
-    class Meta:
-        abstract = True
-
     def __str__(self):
         return self.title
     
@@ -149,7 +146,7 @@ class Archive(models.Model):
 
 class ManuscriptContent(models.Model):
     manuscript = models.ForeignKey('Manuscript')
-    content = models.ForeignKey('Commentary')
+    content = models.ForeignKey('BaseText', null=True)
     folios = models.CharField(max_length=20, blank=True, null=True)
     note = models.CharField(max_length=120, blank=True, null=True)
 
@@ -204,7 +201,7 @@ class Manuscript(models.Model):
     folios = models.CharField(max_length=20, null=True, blank=True)
     layout = models.TextField(blank=True, null=True)
     literature = models.TextField(null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
+
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
