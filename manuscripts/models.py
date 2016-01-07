@@ -74,6 +74,7 @@ class Commentary(BaseText):
     class Meta:
         verbose_name = 'Commentary'
         verbose_name_plural = 'Commentaries'
+        ordering = ['commentator', 'modified']
 
     def __str__(self):
         return '%s by %s' % (self.title, self.commentator)
@@ -82,6 +83,8 @@ class Commentary(BaseText):
 class AuthorityText(BaseText):
     author = models.ForeignKey('Authority', on_delete=models.CASCADE)
     translator = models.ForeignKey('Translator', related_name='translator', blank=True, null=True)
+    class Meta:
+        ordering = ['author']
 
     def __str__(self):
         return '%s by %s' % (self.title, self.author)
