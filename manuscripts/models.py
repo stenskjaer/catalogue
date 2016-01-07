@@ -111,6 +111,9 @@ class Town(BaseModel):
     country = models.ForeignKey(Country)
     town_name = models.CharField(max_length=255)
 
+    class Meta:
+        ordering = ['town_name']
+
     def __str__(self):
         return self.town_name
 
