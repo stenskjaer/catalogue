@@ -234,8 +234,8 @@ class Manuscript(BaseModel):
     folios = models.CharField(max_length=20, null=True, blank=True)
     layout = models.TextField(blank=True, null=True)
     script = models.TextField(blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
     annotation = models.TextField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
     literature = models.TextField(null=True, blank=True)
 
 
