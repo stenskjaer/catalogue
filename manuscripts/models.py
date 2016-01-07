@@ -230,6 +230,8 @@ class Manuscript(BaseModel):
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
     folios = models.CharField(max_length=20, null=True, blank=True)
     layout = models.TextField(blank=True, null=True)
+    script = models.TextField(blank=True, null=True)
+    annotation = models.TextField(blank=True, null=True)
     literature = models.TextField(null=True, blank=True)
 
 
