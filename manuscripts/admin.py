@@ -49,6 +49,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         'commentator',
         'title',
         'date',
+        'relevance',
         'created',
         'modified',
     ]
@@ -64,6 +65,7 @@ admin.site.register(Authority)
 admin.site.register(Translator)
 admin.site.register(CommentaryType)
 admin.site.register(Manuscript, ManuscriptAdmin)
+admin.site.register(ManuscriptContent)
 admin.site.register(Country)
 admin.site.register(Town)
 admin.site.register(Library)
