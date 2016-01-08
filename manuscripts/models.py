@@ -61,12 +61,16 @@ class Commentary(BaseText):
         ('dubious', 'Dubious'),
         ('untrue', 'Untrue'),
     ]
-    RELEVANCE = [
-        (3, 'High'),
-        (2, 'Some'),
-        (1, 'Low'),
-        (0, 'None'),
-    ]
+    RELEVANCE_HIGH = 1
+    RELEVANCE_MID = 2
+    RELEVANCE_LOW = 3
+    RELEVANCE_NONE = 4
+    RELEVANCE_CHOICES = (
+        (RELEVANCE_HIGH, 'High'),
+        (RELEVANCE_MID, 'Some'),
+        (RELEVANCE_LOW, 'Low'),
+        (RELEVANCE_NONE, 'None'),
+    )
     commentator = models.ForeignKey('Commentator', blank=False)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
@@ -76,7 +80,7 @@ class Commentary(BaseText):
     incipit = models.TextField(max_length=1020, blank=True, null=True)
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
-    relevance = models.IntegerField(blank=True, null=True, choices=RELEVANCE)
+    relevance = models.IntegerField(blank=True, null=True, default=RELEVANCE_NONE, choices=RELEVANCE_CHOICES)
 
     class Meta:
         verbose_name = 'Commentary'
