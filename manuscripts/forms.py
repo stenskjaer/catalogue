@@ -1,5 +1,5 @@
 from django import forms
-from .models import Manuscript, Commentary, AuthorityText
+from .models import Manuscript, Commentary, Commentator, AuthorityText
 
 class ManuscriptForm(forms.ModelForm):
     class Meta:
@@ -25,3 +25,8 @@ class AuthorityForm(forms.ModelForm):
         model = AuthorityText
         fields = ['author', 'title', 'title_addon', 'translator', 'date', 'note', 'literature']
         
+
+class CommentatorForm(forms.ModelForm):
+    class Meta:
+        model = Commentator
+        fields = ['name', 'birth', 'death', 'floruit', 'note', 'literature']

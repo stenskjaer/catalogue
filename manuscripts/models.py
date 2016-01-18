@@ -187,6 +187,14 @@ class Archive(BaseModel):
     def __str__(self):
         return '%s' % (self.archive_name)
 
+class CommentatorAlternative(BaseModel):
+    commentator = models.ForeignKey('Commentator')
+    commentary = models.ForeignKey('Commentary')
+    note = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return 'Alternative: %s' % (self.commentator)
+
 
 class ManuscriptContent(BaseModel):
     manuscript = models.ForeignKey('Manuscript')

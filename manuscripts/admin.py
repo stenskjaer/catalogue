@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import *
-from .forms import ManuscriptForm, CommentaryForm, AuthorityForm
+from .forms import ManuscriptForm, CommentaryForm, AuthorityForm, CommentatorForm
 
 class UrlInline(admin.TabularInline):
     model = OnlineMaterial
@@ -17,6 +17,10 @@ class ContentInline(admin.TabularInline):
 
 class ReproductionInline(admin.TabularInline):
     model = Reproduction
+    extra = 1
+
+class AlternativeAuthorInline(admin.TabularInline):
+    model = CommentatorAlternative
     extra = 1
 
 
@@ -43,6 +47,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     form = CommentaryForm
     inlines = [
         ContentInline,
+        AlternativeAuthorInline,
     ]
 
     list_display = [
@@ -58,9 +63,17 @@ class CommentaryAdmin(admin.ModelAdmin):
 class AuthorityAdmin(admin.ModelAdmin):
     form = AuthorityForm
 
+
+class CommentatorAdmin(admin.ModelAdmin):
+    form = CommentatorForm
+    inlines = [
+        AlternativeAuthorInline,
+    ]
+
+
 admin.site.register(Commentary, CommentaryAdmin)
 admin.site.register(AuthorityText, AuthorityAdmin)
-admin.site.register(Commentator)
+admin.site.register(Commentator, CommentatorAdmin)
 admin.site.register(Authority)
 admin.site.register(Translator)
 admin.site.register(CommentaryType)
