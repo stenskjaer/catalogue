@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
+from django_markdown.models import MarkdownField
 
 class BaseModel(models.Model):
     """
@@ -20,8 +21,8 @@ class Author(BaseModel):
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
     floruit = models.CharField(max_length=50, blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
-    literature = models.TextField(blank=True, null=True)
+    note = MarkdownField(blank=True, null=True)
+    literature = MarkdownField(blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -47,8 +48,8 @@ class BaseText(BaseModel):
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
-    note = models.TextField(blank=True, null=True)
-    literature = models.TextField(blank=True, null=True)
+    note = MarkdownField(blank=True, null=True)
+    literature = MarkdownField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -252,11 +253,11 @@ class Manuscript(BaseModel):
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
     folios = models.CharField(max_length=20, null=True, blank=True)
-    layout = models.TextField(blank=True, null=True)
-    script = models.TextField(blank=True, null=True)
-    annotation = models.TextField(blank=True, null=True)
-    note = models.TextField(blank=True, null=True)
-    literature = models.TextField(null=True, blank=True)
+    layout = MarkdownField(blank=True, null=True)
+    script = MarkdownField(blank=True, null=True)
+    annotation = MarkdownField(blank=True, null=True)
+    note = MarkdownField(blank=True, null=True)
+    literature = MarkdownField(null=True, blank=True)
 
 
     class Meta:

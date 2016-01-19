@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^manuscripts/', include('manuscripts.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^chaining/', include('smart_selects.urls')),
+    url(r'^markdown/', include('django_markdown.urls')),
 ]
