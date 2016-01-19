@@ -54,6 +54,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         ContentInline,
         AlternativeAuthorInline,
     ]
+    filter_horizontal = ['related_commentaries']
 
     list_display = [
         'commentator',

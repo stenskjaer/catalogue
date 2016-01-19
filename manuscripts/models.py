@@ -81,6 +81,7 @@ class Commentary(BaseText):
     explicit = models.TextField(max_length=1020, blank=True, null=True)
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
     relevance = models.IntegerField(blank=True, null=True, default=RELEVANCE_NONE, choices=RELEVANCE_CHOICES)
+    related_commentaries = models.ManyToManyField('self', symmetrical=True, blank=True)
 
     class Meta:
         verbose_name = 'Commentary'
