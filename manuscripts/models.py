@@ -259,5 +259,8 @@ class Manuscript(BaseModel):
     literature = models.TextField(null=True, blank=True)
 
 
+    class Meta:
+        ordering = ['town', 'library', 'shelfmark', 'number']
+
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
