@@ -86,10 +86,10 @@ class Commentary(BaseText):
     class Meta:
         verbose_name = 'Commentary'
         verbose_name_plural = 'Commentaries'
-        ordering = ['commentator', 'modified']
+        ordering = ['commentator', 'title', 'modified']
 
     def __str__(self):
-        return '%s by %s' % (self.title, self.commentator)
+        return '%s: %s' % (self.commentator, self.title)
 
 
 class AuthorityText(BaseText):
