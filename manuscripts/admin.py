@@ -23,6 +23,11 @@ class AlternativeAuthorInline(admin.TabularInline):
     model = CommentatorAlternative
     extra = 1
 
+class CommentariesInline(admin.TabularInline):
+    model = Commentary
+    extra = 1
+    fields = ['title', 'relevance', 'mora_reference']
+
 
 class ManuscriptAdmin(admin.ModelAdmin):
     form = ManuscriptForm
@@ -67,6 +72,7 @@ class AuthorityAdmin(admin.ModelAdmin):
 class CommentatorAdmin(admin.ModelAdmin):
     form = CommentatorForm
     inlines = [
+        CommentariesInline,
         AlternativeAuthorInline,
     ]
 
