@@ -74,10 +74,12 @@ class CommentaryAdmin(admin.ModelAdmin):
 
     def reproduction(self, obj):
         ms_query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
+        available = 0
+        witnesses = len(ms_query)
         for ms in ms_query:
             if Manuscript.objects.select_related().filter(reproduction__manuscript=ms.pk):
-                return True
-        return False
+                available =+ 1
+        return '{0}/{1}'.format(available, witnesses)
 
 
 class AuthorityAdmin(admin.ModelAdmin):
