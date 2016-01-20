@@ -39,11 +39,10 @@ class ManuscriptAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        'town',
         'library',
         'shelfmark',
         'number',
-        'town',
-        'created',
         'modified',
     ]
 
