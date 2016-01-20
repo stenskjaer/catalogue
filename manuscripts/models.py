@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
 from django_markdown.models import MarkdownField
@@ -15,6 +16,7 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
         
+
 
 class Author(BaseModel):
     name = models.CharField(max_length=200)
@@ -216,7 +218,7 @@ class ManuscriptInspection(BaseModel):
         ('situ', 'In situ')
     )
     manuscript = models.ForeignKey('Manuscript')
-    inspector = models.CharField(max_length=255)
+    inspector = models.ForeignKey(User, limit_choices_to={'groups__name': 'Inspectors'})
     inspection_type = models.CharField(max_length=10, choices=INSPECTION_TYPES)
     inspection_date = models.DateField()
 
