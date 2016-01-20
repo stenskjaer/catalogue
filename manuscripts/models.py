@@ -141,7 +141,7 @@ class Library(BaseModel):
         Town,
         chained_field = 'library_country',
         chained_model_field = 'country',
-        show_all = True,
+        show_all = False,
         auto_choose = True,
         related_name = 'library_town'
     )
@@ -183,7 +183,7 @@ class Archive(BaseModel):
         Town,
         chained_field = 'country',
         chained_model_field = 'country',
-        show_all = True,
+        show_all = False,
         auto_choose = True,
         related_name = 'archive_town',
         blank=True,
@@ -237,7 +237,7 @@ class Manuscript(BaseModel):
         Town,
         chained_field = 'country',
         chained_model_field = 'country',
-        show_all = True,
+        show_all = False,
         auto_choose = True,
         related_name = 'town'
     )
@@ -245,7 +245,7 @@ class Manuscript(BaseModel):
         Library,
         chained_field = 'town',
         chained_model_field = 'library_town',
-        show_all = True,
+        show_all = False,
         auto_choose = True,
         related_name = 'library'
     )
