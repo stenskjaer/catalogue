@@ -204,6 +204,9 @@ class ManuscriptContent(BaseModel):
     folios = models.CharField(max_length=20, blank=True, null=True)
     note = models.CharField(max_length=120, blank=True, null=True)
 
+    def __str__(self):
+        return '%s' % (self.manuscript)
+
 
 class ManuscriptInspection(BaseModel):
     INSPECTION_TYPES = (
@@ -264,4 +267,8 @@ class Manuscript(BaseModel):
         ordering = ['town', 'library', 'shelfmark', 'number']
 
     def __str__(self):
+        return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
+
+    @property
+    def overview(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)

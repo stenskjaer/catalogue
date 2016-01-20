@@ -63,7 +63,21 @@ class CommentaryAdmin(admin.ModelAdmin):
         'relevance',
         'created',
         'modified',
+        'witnesses',
+        'reproduction',
     ]
+
+    def witnesses(self, obj):
+        query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
+        return '<br />'.join([item.overview for item in query])
+    witnesses.allow_tags = True
+
+    def reproduction(self, obj):
+        ms_query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
+        for ms in ms_query:
+            if Manuscript.objects.select_related().filter(reproduction__manuscript=ms.pk):
+                return True
+        return False
 
 
 class AuthorityAdmin(admin.ModelAdmin):
