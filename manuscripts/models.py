@@ -269,6 +269,7 @@ class Manuscript(BaseModel):
 
     class Meta:
         ordering = ['town', 'library', 'shelfmark', 'number']
+        unique_together = ['country', 'town', 'library', 'shelfmark', 'number']
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
