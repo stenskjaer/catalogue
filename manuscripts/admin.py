@@ -63,7 +63,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         'created',
         'modified',
         'witnesses',
-        'reproduction',
+        'reproductions',
     ]
 
     def witnesses(self, obj):
@@ -71,7 +71,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         return '<br />'.join([item.overview for item in query])
     witnesses.allow_tags = True
 
-    def reproduction(self, obj):
+    def reproductions(self, obj):
         ms_query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
         available = 0
         witnesses = len(ms_query)
@@ -80,6 +80,9 @@ class CommentaryAdmin(admin.ModelAdmin):
                 available =+ 1
         return '{0}/{1}'.format(available, witnesses)
 
+    def queryset(self, request):
+        # Prefetch related objects
+        return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontent', 'reproduction'])
 
 class AuthorityAdmin(admin.ModelAdmin):
     form = AuthorityForm
