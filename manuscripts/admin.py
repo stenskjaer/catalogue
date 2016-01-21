@@ -43,6 +43,8 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'library',
         'shelfmark',
         'number',
+        'date',
+        'saeculo',
         'modified',
     ]
 
@@ -59,6 +61,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         'commentator',
         'title',
         'date',
+        'saeculo',
         'relevance',
         'witnesses',
         'reproductions',

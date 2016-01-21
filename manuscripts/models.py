@@ -5,6 +5,38 @@ from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
 from django_markdown.models import MarkdownField
 
+# Shared functions
+def set_saeculo(self):
+    if date and saeculo == '':
+        d = str(date)
+        s = ''
+
+        # Set century
+        century = int(d[:2])
+        if century == 12:
+            s = '13'
+        elif century == 13:
+            s = '14'
+        elif century == 14:
+            s = '15'
+        elif century == 15:
+            s = '16'
+
+        # Set quarter
+        quarter = int(d[2:4])
+        if quarter < int(25):
+            s += '.1'
+        elif quarter < int(50):
+            s += '.2'
+        elif quarter < int(75):
+            s += '.3'
+        else:
+            s += '.4'
+
+        # Save the content
+        return s
+
+
 class BaseModel(models.Model):
     """
     All models are based on this abstract model. It adds
@@ -50,11 +82,15 @@ class BaseText(BaseModel):
     title = models.CharField(max_length=500)
     title_addon = models.CharField('Title addon', max_length=255, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
+    saeculo = models.CharField(max_length=50, null=True, blank=True)
     note = MarkdownField(blank=True, null=True)
     literature = MarkdownField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        self.saeculo = set_saeculo(self.date, self.saeculo)
 
 class Commentary(BaseText):
     AUTHORSHIP = [
@@ -255,6 +291,7 @@ class Manuscript(BaseModel):
     date_earliest = models.CharField(max_length=100, blank=True, null=True)
     date_latest = models.CharField(max_length=100, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
+    saeculo = models.CharField(max_length=50, null=True, blank=True)
     material = models.CharField(max_length=50, choices=MATERIALS, null=True, blank=True)
     width = models.FloatField('Width (in mm.)', blank=True, null=True)
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
@@ -273,6 +310,10 @@ class Manuscript(BaseModel):
 
     def __str__(self):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
+
+    def clean(self):
+        self.saeculo = set_saeculo(self.date, self.saeculo)
+
 
     @property
     def overview(self):
