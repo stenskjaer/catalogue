@@ -8,7 +8,7 @@ from django_markdown.models import MarkdownField
 # Shared functions
 def set_saeculo(self):
     if self.date and self.saeculo == '':
-        d = str(date)
+        d = str(self.date)
         s = ''
 
         # Set century
