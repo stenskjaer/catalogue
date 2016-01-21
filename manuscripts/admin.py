@@ -60,7 +60,6 @@ class CommentaryAdmin(admin.ModelAdmin):
         'title',
         'date',
         'relevance',
-        'created',
         'modified',
         'witnesses',
         'reproductions',
@@ -83,6 +82,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     def queryset(self, request):
         # Prefetch related objects
         return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontent', 'reproduction'])
+
 
 class AuthorityAdmin(admin.ModelAdmin):
     form = AuthorityForm
