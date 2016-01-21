@@ -60,9 +60,9 @@ class CommentaryAdmin(admin.ModelAdmin):
         'title',
         'date',
         'relevance',
-        'modified',
         'witnesses',
         'reproductions',
+        'modified',
     ]
 
     def witnesses(self, obj):
