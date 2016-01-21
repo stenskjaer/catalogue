@@ -7,7 +7,7 @@ from django_markdown.models import MarkdownField
 
 # Shared functions
 def set_saeculo(self):
-    if date and saeculo == '':
+    if self.date and self.saeculo == '':
         d = str(date)
         s = ''
 
@@ -90,7 +90,7 @@ class BaseText(BaseModel):
         return self.title
 
     def clean(self):
-        self.saeculo = set_saeculo(self.date, self.saeculo)
+        self.saeculo = set_saeculo(self)
 
 class Commentary(BaseText):
     AUTHORSHIP = [
@@ -312,7 +312,7 @@ class Manuscript(BaseModel):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
 
     def clean(self):
-        self.saeculo = set_saeculo(self.date, self.saeculo)
+        self.saeculo = set_saeculo(self)
 
 
     @property
