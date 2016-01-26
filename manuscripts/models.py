@@ -7,34 +7,33 @@ from django_markdown.models import MarkdownField
 
 # Shared functions
 def set_saeculo(self):
-    if self.date and self.saeculo == '':
-        d = str(self.date)
-        s = ''
+    d = str(self.date)
+    s = ''
 
-        # Set century
-        century = int(d[:2])
-        if century == 12:
-            s = '13'
-        elif century == 13:
-            s = '14'
-        elif century == 14:
-            s = '15'
-        elif century == 15:
-            s = '16'
+    # Set century
+    century = int(d[:2])
+    if century == 12:
+        s = '13'
+    elif century == 13:
+        s = '14'
+    elif century == 14:
+        s = '15'
+    elif century == 15:
+        s = '16'
 
-        # Set quarter
-        quarter = int(d[2:4])
-        if quarter < int(25):
-            s += '.1'
-        elif quarter < int(50):
-            s += '.2'
-        elif quarter < int(75):
-            s += '.3'
-        else:
-            s += '.4'
+    # Set quarter
+    quarter = int(d[2:4])
+    if quarter < int(25):
+        s += '.1'
+    elif quarter < int(50):
+        s += '.2'
+    elif quarter < int(75):
+        s += '.3'
+    else:
+        s += '.4'
 
-        # Save the content
-        return s
+    # Save the content
+    return s
 
 
 class BaseModel(models.Model):
@@ -90,7 +89,8 @@ class BaseText(BaseModel):
         return self.title
 
     def clean(self):
-        self.saeculo = set_saeculo(self)
+        if self.date and self.saeculo == '':
+            self.saeculo = set_saeculo(self)
 
 class Commentary(BaseText):
     AUTHORSHIP = [
@@ -312,7 +312,8 @@ class Manuscript(BaseModel):
         return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
 
     def clean(self):
-        self.saeculo = set_saeculo(self)
+        if self.date and self.saeculo == '':
+            self.saeculo = set_saeculo(self)
 
 
     @property
