@@ -48,6 +48,18 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'modified',
     ]
 
+    search_fields = [
+        'town__town_name',
+        'library__library_name',
+        'number',
+        'date',
+        'saeculo',
+        'manuscriptcontent__content__title',
+        'manuscriptcontent__manuscript__town__town_name',
+        'manuscriptcontent__manuscript__library__library_name',
+        'manuscriptcontent__manuscript__number',
+    ]
+
 
 class CommentaryAdmin(admin.ModelAdmin):
     form = CommentaryForm
@@ -67,6 +79,19 @@ class CommentaryAdmin(admin.ModelAdmin):
         'reproductions',
         'modified',
     ]
+
+    search_fields = [
+        'commentator__name',
+        'title',
+        'date',
+        'saeculo',
+        'manuscriptcontent__content__title',
+        'manuscriptcontent__manuscript__town__town_name',
+        'manuscriptcontent__manuscript__library__library_name',
+        'manuscriptcontent__manuscript__number',
+        'manuscriptcontent__manuscript__saeculo',
+    ]
+
 
     def witnesses(self, obj):
         query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
