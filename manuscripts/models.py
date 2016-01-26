@@ -68,7 +68,7 @@ class Author(BaseModel):
 
     def __str__(self):
         if self.birth and self.death:
-            return '{0} ({1} - {2})'.format(
+            return '{0} ({1} – {2})'.format(
                 self.name,
                 'b. ' + self.birth,
                 'd. ' + self.death,
