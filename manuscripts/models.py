@@ -67,7 +67,24 @@ class Author(BaseModel):
         ordering = ['name']
 
     def __str__(self):
-        return self.name
+        if self.birth and self.death:
+            return '{0} ({1} - {2})'.format(
+                self.name,
+                'b. ' + self.birth,
+                'd. ' + self.death,
+            )
+        elif self.birth:
+            return '{0} ({1})'.format(
+                self.name,
+                'b. ' + self.birth,
+            )
+        elif self.death:
+            return '{0} ({1})'.format(
+                self.name,
+                'd. ' + self.death,
+            )
+        else:
+            return self.name
 
 class Commentator(Author):
     pass
