@@ -266,6 +266,10 @@ class ManuscriptContentCommentary(BaseModel):
     folios = models.CharField(max_length=20, blank=True, null=True)
     note = models.CharField(max_length=120, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = 'Manuscript content (commentaries)'
+        verbose_name = 'Manuscript content (commentary)'
+
     def __str__(self):
         return '%s' % (self.manuscript)
 
