@@ -12,7 +12,7 @@ class InspectionInline(admin.TabularInline):
     extra = 1
 
 class ContentInline(admin.TabularInline):
-    model = ManuscriptContent
+    model = ManuscriptContentCommentary
     extra = 1
 
 class ReproductionInline(admin.TabularInline):
@@ -54,10 +54,10 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'number',
         'date',
         'saeculo',
-        'manuscriptcontent__content__title',
-        'manuscriptcontent__manuscript__town__town_name',
-        'manuscriptcontent__manuscript__library__library_name',
-        'manuscriptcontent__manuscript__number',
+        'manuscriptcontentcommentary__content__title',
+        'manuscriptcontentcommentary__manuscript__town__town_name',
+        'manuscriptcontentcommentary__manuscript__library__library_name',
+        'manuscriptcontentcommentary__manuscript__number',
     ]
 
 
@@ -85,21 +85,21 @@ class CommentaryAdmin(admin.ModelAdmin):
         'title',
         'date',
         'saeculo',
-        'manuscriptcontent__content__title',
-        'manuscriptcontent__manuscript__town__town_name',
-        'manuscriptcontent__manuscript__library__library_name',
-        'manuscriptcontent__manuscript__number',
-        'manuscriptcontent__manuscript__saeculo',
+        'manuscriptcontentcommentary__content__title',
+        'manuscriptcontentcommentary__manuscript__town__town_name',
+        'manuscriptcontentcommentary__manuscript__library__library_name',
+        'manuscriptcontentcommentary__manuscript__number',
+        'manuscriptcontentcommentary__manuscript__saeculo',
     ]
 
 
     def witnesses(self, obj):
-        query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
+        query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
         return '<br />'.join([item.overview for item in query])
     witnesses.allow_tags = True
 
     def reproductions(self, obj):
-        ms_query = Manuscript.objects.select_related().filter(manuscriptcontent__content=obj)
+        ms_query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
         available = 0
         witnesses = len(ms_query)
         for ms in ms_query:
@@ -109,7 +109,7 @@ class CommentaryAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         # Prefetch related objects
-        return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontent', 'reproduction'])
+        return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontentcommentary', 'reproduction'])
 
 
 class AuthorityAdmin(admin.ModelAdmin):
@@ -131,7 +131,7 @@ admin.site.register(Authority)
 admin.site.register(Translator)
 admin.site.register(CommentaryType)
 admin.site.register(Manuscript, ManuscriptAdmin)
-admin.site.register(ManuscriptContent)
+admin.site.register(ManuscriptContentCommentary)
 admin.site.register(Country)
 admin.site.register(Town)
 admin.site.register(Library)
