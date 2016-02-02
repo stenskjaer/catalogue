@@ -54,6 +54,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'number',
         'date',
         'saeculo',
+        'shelfmark',
         'manuscriptcontentcommentary__content__title',
         'manuscriptcontentcommentary__manuscript__town__town_name',
         'manuscriptcontentcommentary__manuscript__library__library_name',
