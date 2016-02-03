@@ -46,6 +46,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'date',
         'saeculo',
         'modified',
+        'inspection',
     ]
 
     search_fields = [
@@ -61,6 +62,11 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__number',
     ]
 
+    def inspection(self, obj):
+        query = ManuscriptInspection.objects.select_related().filter(manuscript=obj)
+        if query:
+            return sorted([item.inspection_date for item in query])[0]
+    inspection.admin_order_field = 'manuscriptinspection__inspection_date'
 
 class CommentaryAdmin(admin.ModelAdmin):
     form = CommentaryForm
