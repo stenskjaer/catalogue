@@ -318,7 +318,7 @@ class Manuscript(BaseModel):
     date_latest = models.CharField(max_length=100, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
     saeculo = models.CharField(max_length=50, null=True, blank=True)
-    origin = models.CharField(max_length=250, null=True, blank=True)
+    origin = models.ForeignKey(Country, blank=False, null=True, related_name='origin')
     material = models.CharField(max_length=50, choices=MATERIALS, null=True, blank=True)
     width = models.FloatField('Width (in mm.)', blank=True, null=True)
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
