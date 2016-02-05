@@ -322,7 +322,7 @@ class Manuscript(BaseModel):
     width = models.FloatField('Width (in mm.)', blank=True, null=True)
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
-    folios = models.CharField(max_length=20, null=True, blank=True)
+    folios = models.CharField(max_length=250, null=True, blank=True)
     layout = MarkdownField(blank=True, null=True)
     script = MarkdownField(blank=True, null=True)
     annotation = MarkdownField(blank=True, null=True)
