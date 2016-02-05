@@ -263,8 +263,8 @@ class CommentatorAlternative(BaseModel):
 class ManuscriptContentCommentary(BaseModel):
     manuscript = models.ForeignKey('Manuscript')
     content = models.ForeignKey('Commentary', null=True)
-    folios = models.CharField(max_length=20, blank=True, null=True)
-    note = models.CharField(max_length=120, blank=True, null=True)
+    folios = models.CharField(max_length=500, blank=True, null=True)
+    note = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Manuscript content (commentaries)'
