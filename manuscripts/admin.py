@@ -96,6 +96,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__town__town_name',
         'manuscriptcontentcommentary__manuscript__library__library_name',
         'manuscriptcontentcommentary__manuscript__number',
+        'manuscriptcontentcommentary__manuscript__shelfmark',
         'manuscriptcontentcommentary__manuscript__saeculo',
     ]
 
