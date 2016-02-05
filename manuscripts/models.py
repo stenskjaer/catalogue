@@ -288,6 +288,26 @@ class ManuscriptInspection(BaseModel):
         return '%s by %s' % (self.inspection_date, self.inspector)
 
 
+class ManuscriptOrigin(BaseModel):
+    origin_country = models.ForeignKey(Country, blank=False, null=True)
+    origin_town = ChainedForeignKey(
+        Town,
+        chained_field = 'origin_country',
+        chained_model_field = 'country',
+        show_all = False,
+        auto_choose = True,
+        related_name = 'origin_town',
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        if origin_town:
+            return '{0}, {1}'.format(self.origin_country, self.origin_town)
+        else:
+            return self.origin_country
+
+
 class Manuscript(BaseModel):
     MATERIALS = (
         ('parcment', 'Parchment'),
@@ -318,7 +338,7 @@ class Manuscript(BaseModel):
     date_latest = models.CharField(max_length=100, blank=True, null=True)
     date = models.CharField(max_length=50, null=True, blank=True)
     saeculo = models.CharField(max_length=50, null=True, blank=True)
-    origin = models.ForeignKey(Country, blank=True, null=True, related_name='origin')
+    origin = models.ForeignKey('ManuscriptOrigin', blank=True, null=True, related_name='origin')
     material = models.CharField(max_length=50, choices=MATERIALS, null=True, blank=True)
     width = models.FloatField('Width (in mm.)', blank=True, null=True)
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
