@@ -302,7 +302,7 @@ class ManuscriptOrigin(BaseModel):
     )
 
     def __str__(self):
-        if origin_town:
+        if self.origin_town:
             return '{0}, {1}'.format(self.origin_country, self.origin_town)
         else:
             return self.origin_country
