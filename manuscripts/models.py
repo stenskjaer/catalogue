@@ -300,12 +300,18 @@ class ManuscriptOrigin(BaseModel):
         blank=True,
         null=True
     )
+    dubious = models.BooleanField(default=False)
 
     def __str__(self):
-        if self.origin_town:
-            return '{0}, {1}'.format(self.origin_country, self.origin_town)
+        if self.dubious:
+            dubious = '?'
         else:
-            return '{0}'.format(self.origin_country)
+            dubious = ''
+
+        if self.origin_town:
+            return '{0}, {1}{2}'.format(self.origin_country, self.origin_town, dubious)
+        else:
+            return '{0}{1}'.format(self.origin_country, dubious)
 
 
 class Manuscript(BaseModel):
