@@ -33,8 +33,7 @@ def set_saeculo(self):
         s += '.4'
 
     # Set certainty
-    incertain = d[4]
-    if incertain == '?':
+    if d[4:5] == '?':
         s += '?'
 
     # Save the content
