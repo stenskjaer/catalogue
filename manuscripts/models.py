@@ -305,7 +305,7 @@ class ManuscriptOrigin(BaseModel):
         if self.origin_town:
             return '{0}, {1}'.format(self.origin_country, self.origin_town)
         else:
-            return self.origin_country
+            return '{0}'.format(self.origin_country)
 
 
 class Manuscript(BaseModel):
