@@ -204,6 +204,7 @@ class Library(BaseModel):
         related_name = 'library_town'
     )
     library_name = models.CharField(max_length=255)
+    library_note = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Libraries'
