@@ -19,6 +19,10 @@ class ReproductionInline(admin.TabularInline):
     model = Reproduction
     extra = 1
 
+class EditionInline(admin.TabularInline):
+    model = CommentaryEdition
+    extra = 1
+
 class AlternativeAuthorInline(admin.TabularInline):
     model = CommentatorAlternative
     extra = 1
@@ -72,6 +76,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     form = CommentaryForm
     inlines = [
         ContentInline,
+        EditionInline,
         AlternativeAuthorInline,
     ]
     filter_horizontal = ['related_commentaries']
@@ -140,6 +145,7 @@ admin.site.register(Translator)
 admin.site.register(CommentaryType)
 admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptContentCommentary)
+admin.site.register(CommentaryEdition)
 admin.site.register(Country)
 admin.site.register(Town)
 admin.site.register(Library)
