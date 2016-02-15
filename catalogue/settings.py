@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'manuscripts.apps.ManuscriptsConfig',
+    'references.apps.ReferencesConfig',
     'smart_selects',
     'django_markdown',
     'django_countries',
