@@ -57,8 +57,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__number',
     ]
 
-    @staticmethod
-    def inspection(obj):
+    def inspection(self, obj):
         query = ManuscriptInspection.objects.select_related().filter(manuscript=obj)
         if query:
             return sorted([item.inspection_date for item in query])[0]
