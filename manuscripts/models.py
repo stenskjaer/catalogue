@@ -279,7 +279,7 @@ class ManuscriptContentCommentary(BaseModel):
 
 class CommentaryEdition(BaseModel):
     commentary = models.ForeignKey('Commentary')
-    edition = models.ForeignKey(reference_models.Edition)
+    edition = models.ForeignKey(reference_models.TextEdition)
     note = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:

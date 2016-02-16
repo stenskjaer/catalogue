@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'smart_selects',
     'django_markdown',
     'django_countries',
+    'citations',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
