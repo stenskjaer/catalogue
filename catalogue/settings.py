@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'manuscripts.apps.ManuscriptsConfig',
     'references.apps.ReferencesConfig',
     'commentaries.apps.CommentariesConfig',
+    'persons.apps.PersonsConfig',
     'smart_selects',
     'django_markdown',
     'django_countries',

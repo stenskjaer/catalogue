@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from commentaries.forms import CommentaryForm, CommentatorForm, AuthorityForm
+from commentaries.forms import CommentaryForm, AuthorityTextForm
 from commentaries.models import *
 from manuscripts.admin import ContentInline
 from manuscripts.models import Manuscript
@@ -19,6 +19,10 @@ class CommentariesInline(admin.TabularInline):
     model = Commentary
     extra = 1
     fields = ['title', 'relevance', 'mora_reference']
+
+
+class AuthorityTextAdmin(admin.ModelAdmin):
+    form = AuthorityTextForm
 
 
 class CommentaryAdmin(admin.ModelAdmin):
@@ -76,22 +80,7 @@ class CommentaryAdmin(admin.ModelAdmin):
                                                                               'reproduction'])
 
 
-class CommentatorAdmin(admin.ModelAdmin):
-    form = CommentatorForm
-    inlines = [
-        CommentariesInline,
-        AlternativeAuthorInline,
-    ]
-
-
-class AuthorityAdmin(admin.ModelAdmin):
-    form = AuthorityForm
-
-
-admin.site.register(Authority)
-admin.site.register(Translator)
-admin.site.register(AuthorityText, AuthorityAdmin)
 admin.site.register(Commentary, CommentaryAdmin)
-admin.site.register(Commentator, CommentatorAdmin)
 admin.site.register(CommentaryType)
 admin.site.register(CommentaryEdition)
+admin.site.register(AuthorityText, AuthorityTextAdmin)

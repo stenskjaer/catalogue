@@ -4,52 +4,8 @@ from django_markdown.models import MarkdownField
 
 from catalogue.shared.functions import set_saeculo
 from catalogue.shared.models import BaseModel
+from persons.models import Commentator, Authority, Translator
 from references.models import TextEdition
-
-class Author(BaseModel):
-    name = models.CharField(max_length=200)
-    birth = models.CharField(max_length=50, blank=True, null=True)
-    death = models.CharField(max_length=50, blank=True, null=True)
-    floruit = models.CharField(max_length=50, blank=True, null=True)
-    note = MarkdownField(blank=True, null=True)
-    literature = MarkdownField(blank=True, null=True)
-
-    class Meta:
-        abstract = True
-        ordering = ['name']
-
-    def __str__(self):
-        if self.birth and self.death:
-            return '{0} ({1} – {2})'.format(
-                self.name,
-                'b. ' + self.birth,
-                'd. ' + self.death,
-            )
-        elif self.birth:
-            return '{0} ({1})'.format(
-                self.name,
-                'b. ' + self.birth,
-            )
-        elif self.death:
-            return '{0} ({1})'.format(
-                self.name,
-                'd. ' + self.death,
-            )
-        else:
-            return self.name
-
-
-class Commentator(Author):
-    pass
-
-
-class Authority(Author):
-    class Meta:
-        verbose_name_plural = 'Authorities'
-
-
-class Translator(Author):
-    pass
 
 
 class BaseText(BaseModel):
@@ -88,7 +44,7 @@ class Commentary(BaseText):
         (RELEVANCE_UNKNOWN, 'Unknown'),
         (RELEVANCE_NONE, 'None'),
     )
-    commentator = models.ForeignKey('Commentator', blank=False)
+    commentator = models.ForeignKey(Commentator, blank=False)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
     commentary_on = models.ForeignKey('AuthorityText', blank=True, null=True)
@@ -110,8 +66,8 @@ class Commentary(BaseText):
 
 
 class AuthorityText(BaseText):
-    author = models.ForeignKey('Authority', on_delete=models.CASCADE)
-    translator = models.ForeignKey('Translator', related_name='translator', blank=True, null=True)
+    author = models.ForeignKey(Authority, on_delete=models.CASCADE)
+    translator = models.ForeignKey(Translator, related_name='translator', blank=True, null=True)
     class Meta:
         ordering = ['author']
 
@@ -140,7 +96,7 @@ class CommentaryEdition(BaseModel):
 
 
 class CommentatorAlternative(BaseModel):
-    commentator = models.ForeignKey('Commentator')
+    commentator = models.ForeignKey(Commentator)
     commentary = models.ForeignKey('Commentary')
     note = models.CharField(max_length=255, blank=True, null=True)
 
