@@ -3,29 +3,36 @@ from django.contrib import admin
 from .models import *
 from .forms import ManuscriptForm, CommentaryForm, AuthorityForm, CommentatorForm
 
+
 class UrlInline(admin.TabularInline):
     model = OnlineMaterial
     extra = 1
+
 
 class InspectionInline(admin.TabularInline):
     model = ManuscriptInspection
     extra = 1
 
+
 class ContentInline(admin.TabularInline):
     model = ManuscriptContentCommentary
     extra = 1
+
 
 class ReproductionInline(admin.TabularInline):
     model = Reproduction
     extra = 1
 
+
 class EditionInline(admin.TabularInline):
     model = CommentaryEdition
     extra = 1
 
+
 class AlternativeAuthorInline(admin.TabularInline):
     model = CommentatorAlternative
     extra = 1
+
 
 class CommentariesInline(admin.TabularInline):
     model = Commentary
@@ -66,11 +73,13 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__number',
     ]
 
-    def inspection(self, obj):
+    @staticmethod
+    def inspection(obj):
         query = ManuscriptInspection.objects.select_related().filter(manuscript=obj)
         if query:
             return sorted([item.inspection_date for item in query])[0]
     inspection.admin_order_field = 'manuscriptinspection__inspection_date'
+
 
 class CommentaryAdmin(admin.ModelAdmin):
     form = CommentaryForm
@@ -105,24 +114,26 @@ class CommentaryAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__saeculo',
     ]
 
-
-    def witnesses(self, obj):
+    @staticmethod
+    def witnesses(obj):
         query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
         return '<br />'.join([item.overview for item in query])
     witnesses.allow_tags = True
 
-    def reproductions(self, obj):
+    @staticmethod
+    def reproductions(obj):
         ms_query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
         available = 0
         witnesses = len(ms_query)
         for ms in ms_query:
             if Manuscript.objects.select_related().filter(reproduction__manuscript=ms.pk):
-                available =+ 1
+                available = + 1
         return '{0}/{1}'.format(available, witnesses)
 
     def queryset(self, request):
         # Prefetch related objects
-        return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontentcommentary', 'reproduction'])
+        return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontentcommentary',
+                                                                              'reproduction'])
 
 
 class AuthorityAdmin(admin.ModelAdmin):

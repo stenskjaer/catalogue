@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
 from smart_selects.db_fields import ChainedForeignKey
 from django_countries.fields import CountryField
 from django_markdown.models import MarkdownField
 from references import models as reference_models
+
 
 # Shared functions
 def set_saeculo(self):
@@ -44,7 +45,7 @@ def set_saeculo(self):
 class BaseModel(models.Model):
     """
     All models are based on this abstract model. It adds
-    datetimefields for creation and editing of each model instance.
+    datetime fields for creation and editing of each model instance.
     """
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -52,7 +53,6 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
         
-
 
 class Author(BaseModel):
     name = models.CharField(max_length=200)
@@ -86,6 +86,7 @@ class Author(BaseModel):
         else:
             return self.name
 
+
 class Commentator(Author):
     pass
 
@@ -113,6 +114,7 @@ class BaseText(BaseModel):
     def clean(self):
         if self.date and self.saeculo == '':
             self.saeculo = set_saeculo(self)
+
 
 class Commentary(BaseText):
     AUTHORSHIP = [

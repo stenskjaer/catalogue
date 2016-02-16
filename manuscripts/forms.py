@@ -1,6 +1,7 @@
 from django import forms
 from .models import Manuscript, Commentary, Commentator, AuthorityText
 
+
 class ManuscriptForm(forms.ModelForm):
     class Meta:
         model = Manuscript
@@ -10,14 +11,14 @@ class ManuscriptForm(forms.ModelForm):
 class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
-        fields = [ 'commentator', 'title', 'title_addon',
-                   'commentary_type', 'commentary_on', 'authorship',
-                   'date', 'saeculo', 'after', 'before', 'incipit',
-                   'explicit', 'note', 'literature', 'mora_reference',
-                   'relevance', 'related_commentaries']
+        fields = ['commentator', 'title', 'title_addon',
+                  'commentary_type', 'commentary_on', 'authorship',
+                  'date', 'saeculo', 'after', 'before', 'incipit',
+                  'explicit', 'note', 'literature', 'mora_reference',
+                  'relevance', 'related_commentaries']
         widgets = {
-            'incipit': forms.Textarea(attrs={'rows':2, 'cols':40}),
-            'explicit': forms.Textarea(attrs={'rows':2, 'cols':40}),
+            'incipit': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
+            'explicit': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
         }
 
         
