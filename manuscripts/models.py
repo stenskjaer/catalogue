@@ -1,57 +1,14 @@
 # -*- coding: utf-8 -*-
-from django.db import models
 from django.contrib.auth.models import User
-from smart_selects.db_fields import ChainedForeignKey
-from django_countries.fields import CountryField
+from django.db import models
 from django_markdown.models import MarkdownField
-from references import models as reference_models
 
 from catalogue.shared.functions import set_saeculo
 from catalogue.shared.models import BaseModel
 from commentaries.models import Commentary
+from places.models import Country, Town, Library
+from repositories.models import Archive
 from smart_selects.db_fields import ChainedForeignKey
-
-
-class Country(BaseModel):
-    country = CountryField()
-
-    class Meta:
-        verbose_name_plural = 'Countries'
-
-    def __str__(self):
-        return str(self.country.name)
-
-
-class Town(BaseModel):
-    country = models.ForeignKey(Country)
-    town_name = models.CharField(max_length=255)
-
-    class Meta:
-        ordering = ['town_name']
-
-    def __str__(self):
-        return self.town_name
-
-
-class Library(BaseModel):
-    library_country = models.ForeignKey(Country)
-    library_town = ChainedForeignKey(
-        Town,
-        chained_field = 'library_country',
-        chained_model_field = 'country',
-        show_all = False,
-        auto_choose = True,
-        related_name = 'library_town'
-    )
-    library_name = models.CharField(max_length=255)
-    library_note = models.TextField(blank=True, null=True)
-
-    class Meta:
-        verbose_name_plural = 'Libraries'
-        ordering = ['library_name']
-
-    def __str__(self):
-        return self.library_name
 
 
 class OnlineMaterial(BaseModel):
@@ -66,31 +23,13 @@ class Reproduction(BaseModel):
     )
 
     manuscript = models.ForeignKey('Manuscript')
-    archive = models.ForeignKey('Archive', max_length=255)
+    archive = models.ForeignKey(Archive, max_length=255)
     media = models.CharField(max_length=100, choices=MEDIA_TYPES)
     referencenumber = models.CharField(max_length=255, blank=True, null=True)
     url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return '%s %s' % (self.archive, self.referencenumber)
-
-
-class Archive(BaseModel):
-    archive_name = models.CharField(max_length=255)
-    country = models.ForeignKey(Country, blank=True, null=True)
-    town = ChainedForeignKey(
-        Town,
-        chained_field = 'country',
-        chained_model_field = 'country',
-        show_all = False,
-        auto_choose = True,
-        related_name = 'archive_town',
-        blank=True,
-        null=True,
-    )
-
-    def __str__(self):
-        return '%s' % (self.archive_name)
 
 
 class ManuscriptContentCommentary(BaseModel):

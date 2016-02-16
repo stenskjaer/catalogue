@@ -67,9 +67,5 @@ class ManuscriptAdmin(admin.ModelAdmin):
 
 admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptContentCommentary)
-admin.site.register(Country)
-admin.site.register(Town)
-admin.site.register(Library)
 admin.site.register(Reproduction)
-admin.site.register(Archive)
 admin.site.register(ManuscriptOrigin)
