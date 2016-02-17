@@ -40,6 +40,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
         'number',
         'date',
         'saeculo',
+        'origin',
         'modified',
         'inspection',
     ]
