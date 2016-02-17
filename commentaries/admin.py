@@ -58,14 +58,12 @@ class CommentaryAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__saeculo',
     ]
 
-    @staticmethod
-    def witnesses(obj):
+    def witnesses(self, obj):
         query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
         return '<br />'.join([item.overview for item in query])
     witnesses.allow_tags = True
 
-    @staticmethod
-    def reproductions(obj):
+    def reproductions(self, obj):
         ms_query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
         available = 0
         witnesses = len(ms_query)
