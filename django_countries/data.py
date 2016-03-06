@@ -41,6 +41,7 @@ COMMON_NAMES = {
     "TZ": _("Tanzania"),
     "VE": _("Venezuela"),
     "VN": _("Vietnam"),
+    "VA": _("Vatican"),
 }
 
 # Nicely titled (and translatable) country names.
