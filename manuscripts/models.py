@@ -49,7 +49,8 @@ class ManuscriptContentCommentary(BaseModel):
 class ManuscriptInspection(BaseModel):
     INSPECTION_TYPES = (
         ('digital', 'Digital reproduction'),
-        ('situ', 'In situ')
+        ('situ', 'In situ'),
+        ('microfilm', 'Microfilm'),
     )
     manuscript = models.ForeignKey('Manuscript')
     inspector = models.ForeignKey(User, limit_choices_to={'groups__name': 'Inspectors'})
