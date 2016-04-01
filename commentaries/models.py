@@ -44,6 +44,14 @@ class Commentary(BaseText):
         (RELEVANCE_UNKNOWN, 'Unknown'),
         (RELEVANCE_NONE, 'None'),
     )
+    COVERAGE_NONE = 0
+    COVERAGE_PARTIAL = 1
+    COVERAGE_COMPLETE = 2
+    EDITION_COVERAGE = (
+        (COVERAGE_NONE, 'None'),
+        (COVERAGE_PARTIAL, 'Partial'),
+        (COVERAGE_COMPLETE, 'Full'),
+    )
     commentator = models.ForeignKey(Commentator, blank=False)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)
@@ -55,6 +63,7 @@ class Commentary(BaseText):
     mora_reference = models.CharField(max_length=20, blank=True, null=True)
     relevance = models.IntegerField(blank=True, null=True, default=RELEVANCE_UNKNOWN, choices=RELEVANCE_CHOICES)
     related_commentaries = models.ManyToManyField('self', symmetrical=True, blank=True)
+    edition_coverage = models.IntegerField(blank=True, default=COVERAGE_NONE, choices=EDITION_COVERAGE)
 
     class Meta:
         verbose_name = 'Commentary'

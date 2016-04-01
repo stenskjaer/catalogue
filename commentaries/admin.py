@@ -40,6 +40,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         'date',
         'saeculo',
         'relevance',
+        'edition_coverage',
         'witnesses',
         'reproductions',
         'modified',
