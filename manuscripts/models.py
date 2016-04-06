@@ -21,11 +21,16 @@ class Reproduction(BaseModel):
         ('digital', 'Digital'),
         ('microfilm', 'Micro film'),
     )
-
+    REPRO_COVERAGE = (
+        ('partial', 'Partial'),
+        ('complete', 'Complete'),
+    )
     manuscript = models.ForeignKey('Manuscript')
     archive = models.ForeignKey(Archive, max_length=255)
     media = models.CharField(max_length=100, choices=MEDIA_TYPES)
     referencenumber = models.CharField(max_length=255, blank=True, null=True)
+    coverage = models.CharField(max_length=15, blank=True, choices=REPRO_COVERAGE)
+    note = models.CharField(max_length=512, blank=True, null=True)
     url = models.URLField(blank=True, null=True)
 
     def __str__(self):
