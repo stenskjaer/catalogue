@@ -1,5 +1,5 @@
 from django import forms
-from .models import Manuscript
+from .models import Manuscript, ManuscriptContentCommentary
 
 
 class ManuscriptForm(forms.ModelForm):
@@ -10,3 +10,14 @@ class ManuscriptForm(forms.ModelForm):
                   'saeculo', 'origin', 'material', 'height', 'width',
                   'folios', 'layout', 'script', 'annotation', 'note',
                   'literature']
+
+
+class ContentInlineForm(forms.ModelForm):
+    class Meta:
+        model = ManuscriptContentCommentary
+        fields = ['content', 'folios', 'incipit', 'explicit', 'note']
+        widgets = {
+            'incipit': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
+            'explicit': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
+        }
+

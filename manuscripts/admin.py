@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from manuscripts.forms import ManuscriptForm
+from manuscripts.forms import ManuscriptForm, ContentInlineForm
 from manuscripts.models import *
 
 
@@ -14,7 +14,8 @@ class InspectionInline(admin.TabularInline):
     extra = 1
 
 
-class ContentInline(admin.TabularInline):
+class ContentInline(admin.StackedInline):
+    form = ContentInlineForm
     model = ManuscriptContentCommentary
     extra = 1
 

@@ -42,6 +42,8 @@ class ManuscriptContentCommentary(BaseModel):
     content = models.ForeignKey(Commentary, null=True)
     folios = models.CharField(max_length=500, blank=True, null=True)
     note = models.CharField(max_length=500, blank=True, null=True)
+    incipit = models.TextField(blank=True, null=True)
+    explicit = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Manuscript content (commentaries)'
