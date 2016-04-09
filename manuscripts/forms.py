@@ -17,6 +17,7 @@ class ContentInlineForm(forms.ModelForm):
         model = ManuscriptContentCommentary
         fields = ['content', 'folios', 'incipit', 'explicit', 'note']
         widgets = {
+            'note': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
             'incipit': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
             'explicit': forms.Textarea(attrs={'rows': 2, 'cols': 40}),
         }
