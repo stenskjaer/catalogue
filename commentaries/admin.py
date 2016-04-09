@@ -51,6 +51,7 @@ class CommentaryAdmin(admin.ModelAdmin):
         'title',
         'date',
         'saeculo',
+        'note',
         'manuscriptcontentcommentary__content__title',
         'manuscriptcontentcommentary__manuscript__town__town_name',
         'manuscriptcontentcommentary__manuscript__library__library_name',
