@@ -2,7 +2,7 @@
 from django.db import models
 from django_markdown.models import MarkdownField
 
-from catalogue.shared.functions import set_saeculo
+from catalogue.shared.functions import set_saeculo, truncate
 from catalogue.shared.models import BaseModel
 from persons.models import Commentator, Authority, Translator
 from references.models import TextEdition
@@ -71,7 +71,8 @@ class Commentary(BaseText):
         ordering = ['commentator', 'title', 'modified']
 
     def __str__(self):
-        return '%s: %s' % (self.commentator, self.title)
+        return_string = '%s: %s' % (self.commentator, truncate(self.title))
+        return truncate(return_string)
 
 
 class AuthorityText(BaseText):
