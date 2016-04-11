@@ -1,0 +1,17 @@
+{% extends 'catalogue/base.html' %}
+{% load django_markdown %}
+
+{% block content %}
+<h1>{{ manuscript }}</h1>
+<h2>Notes:</h2>
+<p>{{ manuscript.note|markdown }}</p>
+
+<h2>Content</h2>
+<ul>
+  {% for item in content %}
+  {% if item.manuscript.id == manuscript.id %}
+  <li><a href="{% url 'commentaries:detail' item.content.id %}">{{ item.content }}</a></li>
+  {% endif %}
+  {% endfor %}
+</ul>
+{% endblock %}

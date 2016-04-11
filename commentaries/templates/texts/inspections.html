@@ -1,0 +1,49 @@
+{% extends 'catalogue/base.html' %}
+
+{% block content %}
+{% load django_markdown %}
+{% if texts %}
+<h1>De anima commentaries inspected in manuscripts ({{ texts.total_count }})</h1>
+
+
+<h2>High relevance ({{ texts.high_relevance|length }})</h2>
+
+<ul>
+  {% for text in texts.high_relevance %}
+  <li><a href="{% url 'commentaries:detail' text.id %}">{{ text }}</a></li>
+  {% endfor %}
+</ul>
+
+<h2>Some relevance ({{ texts.some_relevance|length }})</h2>
+<ul>
+  {% for text in texts.some_relevance %}
+  <li><a href="{% url 'commentaries:detail' text.id %}">{{ text }}</a></li>
+  {% endfor %}
+</ul>
+
+<h2>Low relevance ({{ texts.low_relevance|length }})</h2>
+<ul>
+  {% for text in texts.low_relevance %}
+  <li><a href="{% url 'commentaries:detail' text.id %}">{{ text }}</a></li>
+  {% endfor %}
+</ul>
+
+<h2>No relevance, but might have interesting content still... ({{ texts.no_relevance|length }})</h2>
+<ul>
+  {% for text in texts.no_relevance %}
+  <li><a href="{% url 'commentaries:detail' text.id %}">{{ text }}</a></li>
+  {% endfor %}
+</ul>
+
+<h2>Not evaluated... Yikes! ({{ texts.unknown|length }})</h2>
+<ul>
+  {% for text in texts.unknown %}
+  <li><a href="{% url 'commentaries:detail' text.id %}">{{ text }}</a></li>
+  {% endfor %}
+</ul>
+
+
+{% else %}
+<p>No texts are available.</p>
+{% endif %}
+{% endblock %}

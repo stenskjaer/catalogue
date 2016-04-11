@@ -76,7 +76,11 @@ class Text(BaseModel):
             self.saeculo = set_saeculo(self)
 
     def __str__(self):
-        return_string = '%s: %s' % (self.author, truncate(self.title))
+        if self.title_addon:
+            title_string = truncate(self.title + ' ({0})'.format(self.title_addon))
+        else:
+            title_string = truncate(self.title)
+        return_string = '%s: %s' % (self.author, title_string)
         return truncate(return_string)
 
 
