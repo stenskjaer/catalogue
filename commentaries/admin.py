@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from commentaries.forms import CommentaryForm, AuthorityTextForm
+from commentaries.forms import TextForm
 from commentaries.models import *
 from manuscripts.admin import ContentInline
 from manuscripts.models import Manuscript
@@ -11,22 +11,18 @@ class EditionInline(admin.TabularInline):
 
 
 class AlternativeAuthorInline(admin.TabularInline):
-    model = CommentatorAlternative
+    model = AuthorAlternative
     extra = 1
 
 
 class CommentariesInline(admin.TabularInline):
-    model = Commentary
+    model = Text
     extra = 1
     fields = ['title', 'relevance', 'mora_reference']
 
 
-class AuthorityTextAdmin(admin.ModelAdmin):
-    form = AuthorityTextForm
-
-
-class CommentaryAdmin(admin.ModelAdmin):
-    form = CommentaryForm
+class TextAdmin(admin.ModelAdmin):
+    form = TextForm
     inlines = [
         ContentInline,
         EditionInline,
@@ -35,7 +31,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     filter_horizontal = ['related_commentaries']
 
     list_display = [
-        'commentator',
+        'author',
         'title',
         'date',
         'saeculo',
@@ -47,7 +43,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     ]
 
     search_fields = [
-        'commentator__name',
+        'author__name',
         'title',
         'date',
         'saeculo',
@@ -76,11 +72,10 @@ class CommentaryAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         # Prefetch related objects
-        return super(CommentaryAdmin, self).queryset(request).select_related(['manuscriptcontentcommentary',
+        return super(TextAdmin, self).queryset(request).select_related(['manuscriptcontentcommentary',
                                                                               'reproduction'])
 
 
-admin.site.register(Commentary, CommentaryAdmin)
+admin.site.register(Text, TextAdmin)
 admin.site.register(CommentaryType)
 admin.site.register(CommentaryEdition)
-admin.site.register(AuthorityText, AuthorityTextAdmin)

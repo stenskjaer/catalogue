@@ -5,7 +5,7 @@ from django_markdown.models import MarkdownField
 
 from catalogue.shared.functions import set_saeculo
 from catalogue.shared.models import BaseModel
-from commentaries.models import Commentary
+from commentaries.models import Text
 from places.models import Country, Town, Library
 from repositories.models import Archive
 from smart_selects.db_fields import ChainedForeignKey
@@ -39,7 +39,7 @@ class Reproduction(BaseModel):
 
 class ManuscriptContentCommentary(BaseModel):
     manuscript = models.ForeignKey('Manuscript')
-    content = models.ForeignKey(Commentary, null=True)
+    content = models.ForeignKey(Text, null=True)
     folios = models.CharField(max_length=500, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
     incipit = models.TextField(blank=True, null=True)
