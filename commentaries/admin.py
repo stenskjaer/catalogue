@@ -30,6 +30,8 @@ class TextAdmin(admin.ModelAdmin):
     ]
     filter_horizontal = ['related_commentaries']
 
+    list_filter = ('relevance', 'edition_coverage', 'commentary_type', 'commentary_on')
+
     list_display = [
         'author',
         'title',
