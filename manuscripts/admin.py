@@ -14,6 +14,11 @@ class InspectionInline(admin.TabularInline):
     extra = 1
 
 
+class WishlisthInline(admin.TabularInline):
+    model = ReproductionWishlist
+    extra = 0
+
+
 class ContentInline(admin.StackedInline):
     form = ContentInlineForm
     model = ManuscriptContentCommentary
@@ -32,6 +37,7 @@ class ManuscriptAdmin(admin.ModelAdmin):
         UrlInline,
         ContentInline,
         ReproductionInline,
+        WishlisthInline,
     ]
 
     list_display = [
@@ -65,8 +71,8 @@ class ManuscriptAdmin(admin.ModelAdmin):
             return sorted([item.inspection_date for item in query])[0]
     inspection.admin_order_field = 'manuscriptinspection__inspection_date'
 
-
 admin.site.register(Manuscript, ManuscriptAdmin)
 admin.site.register(ManuscriptContentCommentary)
 admin.site.register(Reproduction)
 admin.site.register(ManuscriptOrigin)
+admin.site.register(ReproductionWishlist)
