@@ -97,7 +97,8 @@ class ManuscriptOrigin(BaseModel):
 class Manuscript(BaseModel):
     MATERIALS = (
         ('parcment', 'Parchment'),
-        ('paper', 'Paper')
+        ('paper', 'Paper'),
+        ('combi', 'Parch. and pap.')
     )
 
     country = models.ForeignKey(Country, blank=False, null=True)
