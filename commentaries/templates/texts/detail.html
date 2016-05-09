@@ -1,0 +1,19 @@
+{% extends 'catalogue/base.html' %}
+{% load django_markdown %}
+
+{% block content %}
+<h1>{{ text_detail.author }}: {{ text_detail.title }}</h1>
+<h2>Notes:</h2>
+<p>{{ text_detail.note|markdown }}</p>
+
+<h2>Witnesses</h2>
+<ul>
+  {% for item in witnesses %}
+    {% if item.content.id == text_detail.id %}
+      <li><a href="{% url 'manuscripts:detail' item.manuscript.id %}">{{ item.manuscript }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{{ texts }}
+{% endblock %}
+

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from catalogue.shared.functions import set_saeculo, truncate
 
 from commentaries.forms import TextForm
 from commentaries.models import *
@@ -34,7 +35,7 @@ class TextAdmin(admin.ModelAdmin):
 
     list_display = [
         'author',
-        'title',
+        'collected_title',
         'date',
         'saeculo',
         'relevance',
@@ -57,6 +58,14 @@ class TextAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__shelfmark',
         'manuscriptcontentcommentary__manuscript__saeculo',
     ]
+
+    def collected_title(self, obj):
+        query = Text.objects.select_related().get(id=obj.id)
+        if query.title_addon:
+            return truncate(query.title + ' ({0})'.format(query.title_addon))
+        else:
+            return truncate(query.title)
+
 
     def witnesses(self, obj):
         query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
