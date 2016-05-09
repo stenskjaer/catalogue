@@ -85,6 +85,13 @@ WSGI_APPLICATION = 'catalogue.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'catalogue',
+    #     'USER': 'michael',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # },
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'catalogue',
