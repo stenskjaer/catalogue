@@ -8,6 +8,7 @@ class Author(BaseModel):
     birth = models.CharField(max_length=50, blank=True, null=True)
     death = models.CharField(max_length=50, blank=True, null=True)
     floruit = models.CharField(max_length=50, blank=True, null=True)
+    viaf_url = models.URLField(blank=True, null=True)
     note = MarkdownField(blank=True, null=True)
     literature = MarkdownField(blank=True, null=True)
 
