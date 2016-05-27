@@ -8,11 +8,26 @@
 
 <h2>High relevance ({{ texts.high_relevance|length }})</h2>
 
-<ul>
-  {% for text in texts.high_relevance %}
-  <li><a href="{% url 'commentaries:detail' text.id %}">{{ text }}</a></li>
-  {% endfor %}
-</ul>
+<div class="list-group">
+    {% for text in texts.high_relevance %}
+    <a href="{% url 'commentaries:detail' text.id %}" class="list-group-item">
+        <h4 class="list-group-item-heading">
+        {{ text }}
+        </h4>
+        {% if text.saeculo %}
+        <p>
+            Saeculo: {{ text.saeculo }}
+        </p>
+        {% endif %}
+        <p>
+            Edition coverage: {{ text.edition_coverage }}
+        </p>
+        <p>
+            Note: {{ text.note|truncatechars:500 }}
+        </p>
+    </a>
+    {% endfor %}
+</div>
 
 <h2>Some relevance ({{ texts.some_relevance|length }})</h2>
 <ul>
