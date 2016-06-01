@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.forms import ValidationError
 from django_markdown.models import MarkdownField
 
 from catalogue.shared.functions import set_saeculo, truncate
 from catalogue.shared.models import BaseModel
 from persons.models import Commentator, Authority, Translator
-
+import re
 
 class Text(BaseModel):
     AUTHORSHIP = [
@@ -70,9 +71,30 @@ class Text(BaseModel):
         verbose_name_plural = 'Texts'
         ordering = ['author', 'title', 'modified']
 
+
     def clean(self):
         if self.date and self.saeculo == '':
             self.saeculo = set_saeculo(self)
+        mora_value = self.mora_reference
+        if mora_value:
+            reference_base = 'DA'
+            regex_pattern = re.compile('([0-9]+)(.*?)$')
+            if re.search(regex_pattern, mora_value):
+                reference_number = re.search(regex_pattern, mora_value).group(1)
+                reference_suffix = re.search(regex_pattern, mora_value).group(2)
+            else:
+                raise ValidationError("The Mora reference number must contain at least one digit.")
+
+            if len(reference_number) > 3:
+                raise ValidationError("The Mora reference number must not be longer than three digits.")
+            if len(reference_number) == 3:
+                self.mora_reference = reference_base + reference_number + reference_suffix
+            elif len(reference_number) == 2:
+                self.mora_reference = reference_base + '0' + reference_number + reference_suffix
+            elif len(reference_number) == 1:
+                self.mora_reference = reference_base + '00' + reference_number + reference_suffix
+
+
 
     def __str__(self):
         if self.title_addon:
