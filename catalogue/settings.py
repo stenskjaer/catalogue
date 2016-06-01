@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'manuscripts.apps.ManuscriptsConfig',
-    'references.apps.ReferencesConfig',
     'commentaries.apps.CommentariesConfig',
     'persons.apps.PersonsConfig',
     'places.apps.PlacesConfig',
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     'smart_selects',
     'django_markdown',
     'django_countries',
-    'citations',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -99,7 +97,7 @@ DATABASES = {
         'NAME': 'catalogue',
         'USER': 'michael',
         'PASSWORD': '2Rm7iGJrlTIQ',
-        'HOST': 'catalogue.ctmgmgwqndgo.eu-west-1.rds.amazonaws.com',
+        'HOST': 'catalogue-restore.ctmgmgwqndgo.eu-west-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         ('places', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('repositories', '0001_initial'),
-        ('commentaries', '0001_squashed_0008_auto_20160403_1953'),
+        ('commentaries', '0001_squashed_0015_auto_20160601_0937'),
     ]
 
     operations = [

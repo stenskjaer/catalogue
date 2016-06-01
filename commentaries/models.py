@@ -5,7 +5,6 @@ from django_markdown.models import MarkdownField
 from catalogue.shared.functions import set_saeculo, truncate
 from catalogue.shared.models import BaseModel
 from persons.models import Commentator, Authority, Translator
-from references.models import TextEdition
 
 
 class Text(BaseModel):
@@ -91,17 +90,17 @@ class CommentaryType(BaseModel):
         return self.commentary_type
 
 
-class CommentaryEdition(BaseModel):
-    commentary = models.ForeignKey('Text')
-    edition = models.ForeignKey(TextEdition)
-    note = models.CharField(max_length=500, blank=True, null=True)
+# class CommentaryEdition(BaseModel):
+#     commentary = models.ForeignKey('Text')
+#     edition = models.ForeignKey(TextEdition)
+#     note = models.CharField(max_length=500, blank=True, null=True)
 
-    class Meta:
-        verbose_name_plural = 'Text editions'
-        verbose_name = 'Text edition'
+#     class Meta:
+#         verbose_name_plural = 'Text editions'
+#         verbose_name = 'Text edition'
 
-    def __str__(self):
-        return '%s: %s' % (self.edition, self.commentary)
+#     def __str__(self):
+#         return '%s: %s' % (self.edition, self.commentary)
 
 
 class AuthorAlternative(BaseModel):

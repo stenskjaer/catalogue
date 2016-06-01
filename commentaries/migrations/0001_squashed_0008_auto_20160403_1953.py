@@ -9,13 +9,13 @@ import django_markdown.models
 
 class Migration(migrations.Migration):
 
-    replaces = [('commentaries', '0001_initial'), ('commentaries', '0002_auto_20160329_1506'), ('commentaries', '0003_auto_20160329_1509'), ('commentaries', '0004_auto_20160329_1515'), ('commentaries', '0005_commentaryedition_coverage'), ('commentaries', '0006_auto_20160401_0820'), ('commentaries', '0007_auto_20160401_0823'), ('commentaries', '0008_auto_20160403_1953')]
+    # replaces = [('commentaries', '0001_initial'), ('commentaries', '0002_auto_20160329_1506'), ('commentaries', '0003_auto_20160329_1509'), ('commentaries', '0004_auto_20160329_1515'), ('commentaries', '0005_commentaryedition_coverage'), ('commentaries', '0006_auto_20160401_0820'), ('commentaries', '0007_auto_20160401_0823'), ('commentaries', '0008_auto_20160403_1953')]
 
     initial = True
 
-    dependencies = [
-        ('references', '0002_auto_20160216_0846'),
-    ]
+    # dependencies = [
+    #     ('references', '0002_auto_20160216_0846'),
+    # ]
 
     operations = [
         migrations.CreateModel(

@@ -6,9 +6,9 @@ from commentaries.models import *
 from manuscripts.admin import ContentInline
 from manuscripts.models import Manuscript
 
-class EditionInline(admin.TabularInline):
-    model = CommentaryEdition
-    extra = 1
+# class EditionInline(admin.TabularInline):
+#     model = CommentaryEdition
+#     extra = 1
 
 
 class AlternativeAuthorInline(admin.TabularInline):
@@ -26,7 +26,7 @@ class TextAdmin(admin.ModelAdmin):
     form = TextForm
     inlines = [
         ContentInline,
-        EditionInline,
+        # EditionInline,
         AlternativeAuthorInline,
     ]
     filter_horizontal = ['related_commentaries']
@@ -89,4 +89,4 @@ class TextAdmin(admin.ModelAdmin):
 
 admin.site.register(Text, TextAdmin)
 admin.site.register(CommentaryType)
-admin.site.register(CommentaryEdition)
+# admin.site.register(CommentaryEdition)
