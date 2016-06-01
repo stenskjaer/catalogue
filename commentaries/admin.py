@@ -43,6 +43,7 @@ class TextAdmin(admin.ModelAdmin):
         'witnesses',
         'reproductions',
         'modified',
+        'mora_reference',
     ]
 
     search_fields = [
