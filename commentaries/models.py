@@ -31,10 +31,12 @@ class Text(BaseModel):
     COVERAGE_NONE = 0
     COVERAGE_PARTIAL = 1
     COVERAGE_COMPLETE = 2
+    COVERAGE_EARLY = 3
     EDITION_COVERAGE = (
         (COVERAGE_NONE, 'None'),
         (COVERAGE_PARTIAL, 'Partial'),
         (COVERAGE_COMPLETE, 'Full'),
+        (COVERAGE_EARLY, 'Early print'),
     )
     TEXT_AUTHORITY = 1
     TEXT_COMMENTARY = 2
