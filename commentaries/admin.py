@@ -5,6 +5,7 @@ from commentaries.forms import TextForm
 from commentaries.models import *
 from manuscripts.admin import ContentInline
 from manuscripts.models import Manuscript
+from commentaries.filterlists import CommentarySaeculo
 
 # class EditionInline(admin.TabularInline):
 #     model = CommentaryEdition
@@ -31,7 +32,7 @@ class TextAdmin(admin.ModelAdmin):
     ]
     filter_horizontal = ['related_commentaries']
 
-    list_filter = ('relevance', 'edition_coverage', 'commentary_type', 'commentary_on')
+    list_filter = ('relevance', CommentarySaeculo, 'edition_coverage', 'commentary_type', 'commentary_on')
 
     list_display = [
         'author',
