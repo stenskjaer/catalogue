@@ -11,6 +11,7 @@ class Author(BaseModel):
     viaf_url = models.URLField(blank=True, null=True)
     note = MarkdownField(blank=True, null=True)
     literature = MarkdownField(blank=True, null=True)
+    attachments = models.FileField(blank = True, upload_to='persons/%Y-%m-%d')
 
     class Meta:
         abstract = True
