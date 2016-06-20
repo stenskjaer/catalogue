@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listofFileNames>
+    <header>
+        <authorName>{{ text_detail.author }}</authorName>
+        <commentaryName>{{ text_detail.title }}</commentaryName>
+        <commentaryid></commentaryid>
+        <commentaryslug>{{ text_detail.id }}</commentaryslug>
+        <authorUri></authorUri>
+  	    <parentUri></parentUri>
+  	    <textfilesdir></textfilesdir>
+        <webbase>null</webbase>
+        <questionListSource></questionListSource>
+        <questionListOriginalEditor>Michael Stenskjær Christensen</questionListOriginalEditor>
+        <questionListEncoder>Michael Stenskjær Christensen</questionListEncoder>
+  	    <!-- possible metadata should go here or be added elsewhere 
+  	       -->
+        <hasWitnesses>
+            {% for item in witnesses %}
+            <witness id="{{ item.library.library_town|make_list|slice:'1'|join:''|upper }}">
+                <slug>{{ item.library.library_town|make_list|slice:'3'|join:''|lower }}{{ item.number|cut:' '|lower }}</slug>
+                <title>{{ item }}</title>
+                <initial>{{ item.library.library_town|make_list|slice:'1'|join:''|upper }}</initial>
+            </witness>
+           {% endfor %}
+        </hasWitnesses>
+    </header>
+    <div id="body" xml:lang="la">
+        <div id="{{ item.id }}-librum1">
+            <head>
+                Liber primus
+            </head>
+            <item id="{{ item.id }}-prooemium">
+    	          <fileName filestem="{{ item.id }}-prooemium"/>
+    	          <title>Prooemium</title>
+    	          <questionTitle/>
+    	          <hasWitnesses>
+    		            <witness ref="...">
+    			              <folio>...</folio>
+    		            </witness>
+                    <witness ref="...">
+                        <folio>...</folio>
+                    </witness>
+    	          </hasWitnesses>
+            </item>
+            <item id="{{ item.id }}-l1q1" type="quaestio">
+                <fileName filestem="{{ item.id }}-l1q1"/>
+                <title>...</title>
+                <hasWitnesses>
+                    <witness ref="...">
+                        <folio>...</folio>
+                    </witness>
+                </hasWitnesses>
+            </item>
+        </div>
+	  </div>
+</listofFileNames>

@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.Details.as_view(), name='detail'),
     url(r'^inspected/$', views.Inspected.as_view(), name='inspected'),
     url(r'^relevant/$', views.Relevant.as_view(), name='relevant'),
+    url(r'^projectfile/(?P<pk>[0-9]+)/$', views.ProjectFile.as_view(content_type='text/plain'), name='projectfile'),
 ]

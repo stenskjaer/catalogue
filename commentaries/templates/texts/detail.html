@@ -15,5 +15,10 @@
   {% endfor %}
 </ul>
 {{ texts }}
+
+<h2>Project-file</h2>
+<p>
+    <a href="{% url 'commentaries:projectfile' text_detail.id %}">Create project file</a>
+</p>
 {% endblock %}
 

@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 
 from .models import Text
-from manuscripts.models import ManuscriptContentCommentary, ManuscriptInspection
+from manuscripts.models import ManuscriptContentCommentary, ManuscriptInspection, Manuscript
 
 
 class IndexView(generic.ListView):
@@ -110,3 +110,15 @@ class Relevant(generic.ListView):
             text_list['unknown']
         )
         return(text_list)
+
+class ProjectFile(generic.DetailView):
+    model = Text
+    template_name = 'texts/project_file.html'
+    context_object_name = 'text_detail'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ProjectFile, self).get_context_data(**kwargs)
+        # Add a QuerySet of text witnesses
+        context['witnesses'] = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=kwargs['object'])
+        return context
