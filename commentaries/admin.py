@@ -23,11 +23,18 @@ class CommentariesInline(admin.TabularInline):
     fields = ['title', 'relevance', 'mora_reference']
 
 
+class AttachmentInline(admin.TabularInline):
+    model = Attachment
+    extra = 1
+    fields = ['attachment']
+
+
 class TextAdmin(admin.ModelAdmin):
     form = TextForm
     inlines = [
         ContentInline,
         # EditionInline,
+        AttachmentInline,
         AlternativeAuthorInline,
     ]
     filter_horizontal = ['related_commentaries']

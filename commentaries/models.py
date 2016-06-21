@@ -3,7 +3,7 @@ from django.db import models
 from django.forms import ValidationError
 from django_markdown.models import MarkdownField
 
-from catalogue.shared.functions import set_saeculo, truncate
+from catalogue.shared.functions import set_saeculo, truncate, attachment_id_path
 from catalogue.shared.models import BaseModel
 from persons.models import Commentator, Authority, Translator
 import re
@@ -113,6 +113,10 @@ class CommentaryType(BaseModel):
     def __str__(self):
         return self.commentary_type
 
+
+class Attachment(BaseModel):
+    attachment = models.FileField(blank = True, upload_to = attachment_id_path)
+    attached_to = models.ForeignKey('Text')
 
 # class CommentaryEdition(BaseModel):
 #     commentary = models.ForeignKey('Text')

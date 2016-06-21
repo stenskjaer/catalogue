@@ -36,3 +36,14 @@ def truncate(content, length=100, suffix=' ...'):
         return content
     else:
         return ' '.join(content[:length+1].split(' ')[0:-1]) + suffix
+
+def attachment_id_path(instance, filename):
+    """Return the upload path of a File based on the class where it is used as an
+    inline model. The assumes that the model contains the field `attached_to`,
+    which hold the foreign key to the model that is going to have the
+    attachment.
+
+    """
+    return '{0}/id_{1}/{2}'.format(
+        instance.attached_to.__class__.__name__, instance.attached_to.id, filename
+    )
