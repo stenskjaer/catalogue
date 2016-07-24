@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'repositories.apps.RepositoriesConfig',
     'smart_selects',
     'django_markdown',
+    'django_extensions',
     'django_countries',
     'django.contrib.admin',
     'django.contrib.auth',
