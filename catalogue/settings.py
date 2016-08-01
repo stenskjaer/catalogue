@@ -85,6 +85,7 @@ WSGI_APPLICATION = 'catalogue.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+DB_PASS = get_env_variable('CATALOGUE_DB_PASS')
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
@@ -97,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'catalogue',
         'USER': 'michael',
-        'PASSWORD': '2Rm7iGJrlTIQ',
+        'PASSWORD': DB_PASS,
         'HOST': 'catalogue-restore.ctmgmgwqndgo.eu-west-1.rds.amazonaws.com',
         'PORT': '5432',
     }
