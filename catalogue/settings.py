@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f_mdyy6s1or9@upm+1h=2eyv9&6_2_n%7qhbaet@ou0-new)jh'
+SECRET_KEY = os.environ['CATALOGUE_DJANGO_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'catalogue.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DB_PASS = get_env_variable('CATALOGUE_DB_PASS')
+DB_PASS = os.environ['CATALOGUE_DB_PASS']
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
