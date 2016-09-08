@@ -5,7 +5,7 @@ from catalogue.shared.actions import export_as_csv_action
 from commentaries.forms import TextForm
 from commentaries.models import *
 from manuscripts.admin import ContentInline
-from manuscripts.models import Manuscript
+from manuscripts.models import ManuscriptContentCommentary
 from commentaries.filterlists import CommentarySaeculo
 
 # class EditionInline(admin.TabularInline):
@@ -86,8 +86,25 @@ class TextAdmin(admin.ModelAdmin):
 
 
     def witnesses(self, obj):
-        query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
-        return '<br />'.join([item.overview for item in query])
+        query = ManuscriptContentCommentary.objects.select_related().filter(content=obj)
+
+        return_list = []
+        for item in query:
+            folio_range = ''
+            if item.folios:
+                folio_range = '(ff. {})'.format(item.folios)
+
+            ms = item.manuscript
+            return_list.append(
+                '%s, %s, %s %s %s' % (
+                    ms.town,
+                    ms.library,
+                    ms.shelfmark,
+                    ms.number,
+                    folio_range
+                )
+            )
+        return '<br/>'.join(return_list)
     witnesses.allow_tags = True
 
     def reproductions(self, obj):
