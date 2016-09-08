@@ -1,5 +1,6 @@
 from django.contrib import admin
 from catalogue.shared.functions import set_saeculo, truncate
+from catalogue.shared.actions import export_as_csv_action
 
 from commentaries.forms import TextForm
 from commentaries.models import *
@@ -66,6 +67,14 @@ class TextAdmin(admin.ModelAdmin):
         'manuscriptcontentcommentary__manuscript__number',
         'manuscriptcontentcommentary__manuscript__shelfmark',
         'manuscriptcontentcommentary__manuscript__saeculo',
+    ]
+
+    actions = [
+        export_as_csv_action(
+            "CSV Export",
+            fields=['id', 'author', 'title', 'date', 'edition_coverage',
+                    'witnesses', 'reproductions', 'modified', 'mora_reference']
+        )
     ]
 
     def collected_title(self, obj):
