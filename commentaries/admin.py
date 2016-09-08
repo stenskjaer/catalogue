@@ -5,7 +5,7 @@ from catalogue.shared.actions import export_as_csv_action
 from commentaries.forms import TextForm
 from commentaries.models import *
 from manuscripts.admin import ContentInline
-from manuscripts.models import ManuscriptContentCommentary
+from manuscripts.models import ManuscriptContentCommentary, Reproduction
 from commentaries.filterlists import CommentarySaeculo
 
 # class EditionInline(admin.TabularInline):
@@ -108,13 +108,14 @@ class TextAdmin(admin.ModelAdmin):
     witnesses.allow_tags = True
 
     def reproductions(self, obj):
-        ms_query = Manuscript.objects.select_related().filter(manuscriptcontentcommentary__content=obj)
-        available = 0
-        witnesses = len(ms_query)
-        for ms in ms_query:
-            if Manuscript.objects.select_related().filter(reproduction__manuscript=ms.pk):
-                available = + 1
-        return '{0}/{1}'.format(available, witnesses)
+        ms_query = ManuscriptContentCommentary.objects.select_related().filter(content=obj)
+        witness_count = len(ms_query)
+        repro_count = 0
+        for item in ms_query:
+            if Reproduction.objects.filter(manuscript=item.pk):
+                repro_count =+ 1
+
+        return '{0}/{1}'.format(repro_count, witness_count)
 
     def queryset(self, request):
         # Prefetch related objects
