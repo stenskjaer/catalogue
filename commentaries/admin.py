@@ -112,7 +112,7 @@ class TextAdmin(admin.ModelAdmin):
         witness_count = len(ms_query)
         repro_count = 0
         for item in ms_query:
-            if Reproduction.objects.filter(manuscript=item.pk):
+            if Reproduction.objects.filter(manuscript=item.manuscript):
                 repro_count =+ 1
 
         return '{0}/{1}'.format(repro_count, witness_count)
