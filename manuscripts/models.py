@@ -154,7 +154,7 @@ class Manuscript(BaseModel):
         unique_together = ['country', 'town', 'library', 'shelfmark', 'number']
 
     def __str__(self):
-        return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark self.number)
+        return '%s, %s, %s %s' % (self.town, self.library, self.shelfmark, self.number)
 
     def clean(self):
         if self.date and self.saeculo == '':
