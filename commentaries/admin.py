@@ -90,13 +90,13 @@ class TextAdmin(admin.ModelAdmin):
 
         return_list = []
         for item in query:
-            folio_range = ''
+            folio_range = 'no fol.'
             if item.folios:
-                folio_range = '(ff. {})'.format(item.folios)
+                folio_range = 'ff. {}'.format(item.folios)
 
             ms = item.manuscript
             return_list.append(
-                '%s, %s, %s %s %s' % (
+                '%s, %s, %s %s, %s' % (
                     ms.town,
                     ms.library,
                     ms.shelfmark,
