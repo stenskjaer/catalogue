@@ -37,11 +37,16 @@ class Library(BaseModel):
         related_name = 'library_town'
     )
     library_name = models.CharField(max_length=255)
+    library_short_name = models.CharField(max_length=255, null=True, blank=True)
     library_note = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Libraries'
         ordering = ['library_name']
 
+
     def __str__(self):
-        return self.library_name
+        print_library = self.library_name
+        if self.library_short_name:
+            print_library = self.library_short_name
+        return print_library
