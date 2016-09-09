@@ -96,7 +96,7 @@ class TextAdmin(admin.ModelAdmin):
 
             ms = item.manuscript
             return_list.append(
-                '%s, %s, %s %s, %s' % (
+                '%s, %s %s %s, %s' % (
                     ms.town,
                     ms.library,
                     ms.shelfmark,
