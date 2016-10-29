@@ -116,8 +116,8 @@ Temporary Items
 # Deployment directories
 logs/
 
-# Deployment secrets
-secrets.py
+# Heroku .env file
+.env
 
 ### PyCharm ###
 .idea

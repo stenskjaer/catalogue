@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.staticfiles import views
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,4 +26,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^markdown/', include('django_markdown.urls')),
+    url(r'^static/(?P<path>.*)$', views.serve),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
