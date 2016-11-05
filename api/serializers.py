@@ -5,10 +5,14 @@ from commentaries.models import Text
 
 
 class ManuscriptSerializer(serializers.ModelSerializer):
+    country = serializers.StringRelatedField()
+    town = serializers.StringRelatedField()
+    library = serializers.StringRelatedField()
 
     class Meta:
         model = Manuscript
-        fields = ('id', 'date', 'date_earliest', 'date_latest', 'saeculo')
+        fields = ('id', 'country', 'town', 'library', 'shelfmark', 'number', 'date', 'date_earliest', 'date_latest',
+                  'saeculo')
         depth = 2
 
 
