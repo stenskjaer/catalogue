@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'persons.apps.PersonsConfig',
     'places.apps.PlacesConfig',
     'repositories.apps.RepositoriesConfig',
+    'api.apps.ApiConfig',
     'smart_selects',
+    'rest_framework',
     'django_markdown',
     'django_extensions',
     'django_countries',
@@ -106,6 +108,15 @@ DATABASES = {
         'HOST': DB_HOST,
         'PORT': '5432',
     }
+}
+
+# REST setup
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }
 
 

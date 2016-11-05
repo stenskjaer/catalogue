@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^markdown/', include('django_markdown.urls')),
     url(r'^static/(?P<path>.*)$', views.serve),
+    url(r'^api/', include('api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
