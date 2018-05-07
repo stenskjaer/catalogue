@@ -74,7 +74,8 @@ class TextAdmin(admin.ModelAdmin):
         export_as_csv_action(
             "CSV Export",
             fields=['id', 'author', 'title', 'date', 'edition_coverage',
-                    'witnesses', 'reproductions', 'modified', 'mora_reference']
+                    'saeculo', 'witnesses', 'reproductions', 'modified',
+                    'mora_reference']
         )
     ]
 
