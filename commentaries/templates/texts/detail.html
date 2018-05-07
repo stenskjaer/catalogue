@@ -1,10 +1,9 @@
 {% extends 'catalogue/base.html' %}
-{% load django_markdown %}
 
 {% block content %}
 <h1>{{ text_detail.author }}: {{ text_detail.title }}</h1>
 <h2>Notes:</h2>
-<p>{{ text_detail.note|markdown }}</p>
+<p>{{ text_detail.note }}</p>
 
 <h2>Witnesses</h2>
 <ul>

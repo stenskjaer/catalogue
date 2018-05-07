@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'smart_selects',
     'rest_framework',
-    'django_markdown',
     'django_extensions',
     'django_countries',
     'django.contrib.admin',

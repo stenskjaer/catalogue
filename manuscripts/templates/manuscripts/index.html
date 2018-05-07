@@ -1,12 +1,11 @@
 {% extends 'catalogue/base.html' %}
-{% load django_markdown %}
 
 {% block content %}
 {% if manuscripts %}
     <ul>
     {% for ms in manuscripts  %}
     <li><a href="{% url 'manuscripts:detail' ms.id %}">{{ ms }}</a></li>
-    <p>Note: {{ ms.note|markdown_safe }}</p>
+    <p>Note: {{ ms.note }}</p>
     {% endfor %}
     </ul>
 {% else %}

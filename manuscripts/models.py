@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.db import models
-from django_markdown.models import MarkdownField
 
 from catalogue.shared.functions import set_saeculo
 from catalogue.shared.models import BaseModel
@@ -143,11 +142,11 @@ class Manuscript(BaseModel):
     height = models.FloatField('Height (in mm.)', blank=True, null=True)
     dimension_note = models.CharField('Note about dimensions', max_length=255, blank=True, null=True)
     folios = models.CharField(max_length=250, null=True, blank=True)
-    layout = MarkdownField(blank=True, null=True)
-    script = MarkdownField(blank=True, null=True)
-    annotation = MarkdownField(blank=True, null=True)
-    note = MarkdownField(blank=True, null=True)
-    literature = MarkdownField(null=True, blank=True)
+    layout = models.TextField(blank=True, null=True)
+    script = models.TextField(blank=True, null=True)
+    annotation = models.TextField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    literature = models.TextField(null=True, blank=True)
 
 
     class Meta:

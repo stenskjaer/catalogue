@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.forms import ValidationError
-from django_markdown.models import MarkdownField
-
 from catalogue.shared.functions import set_saeculo, truncate, attachment_id_path
 from catalogue.shared.models import BaseModel
 from persons.models import Commentator, Authority, Translator
@@ -52,8 +50,8 @@ class Text(BaseModel):
     text_type = models.CharField(max_length=100, null=True, blank=True)
     date = models.CharField(max_length=50, null=True, blank=True)
     saeculo = models.CharField(max_length=50, null=True, blank=True)
-    note = MarkdownField(blank=True, null=True)
-    literature = MarkdownField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
     author = models.ForeignKey(Commentator, blank=False)
     authorship = models.CharField(max_length=10, blank=True, null=True, choices=AUTHORSHIP)
     commentary_type = models.ForeignKey('CommentaryType', blank=True, null=True)

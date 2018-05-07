@@ -1,5 +1,4 @@
 from django.db import models
-from django_markdown.models import MarkdownField
 
 from catalogue.shared.models import BaseModel
 
@@ -9,8 +8,8 @@ class Author(BaseModel):
     death = models.CharField(max_length=50, blank=True, null=True)
     floruit = models.CharField(max_length=50, blank=True, null=True)
     viaf_url = models.URLField(blank=True, null=True)
-    note = MarkdownField(blank=True, null=True)
-    literature = MarkdownField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
+    literature = models.TextField(blank=True, null=True)
     attachments = models.FileField(blank = True, upload_to='persons/%Y-%m-%d')
 
     class Meta:

@@ -1,10 +1,9 @@
 {% extends 'catalogue/base.html' %}
-{% load django_markdown %}
 
 {% block content %}
 <h1>{{ manuscript }}</h1>
 <h2>Notes:</h2>
-<p>{{ manuscript.note|markdown }}</p>
+<p>{{ manuscript.note }}</p>
 
 <h2>Content</h2>
 <ul>

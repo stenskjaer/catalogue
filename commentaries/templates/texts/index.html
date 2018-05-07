@@ -1,12 +1,11 @@
 {% extends 'catalogue/base.html' %}
 
 {% block content %}
-{% load django_markdown %}
 {% if text_list %}
     <ul>
     {% for com in text_list %}
     <li><a href="{% url 'commentaries:detail' com.id %}">{{ com.author }}, {{ com.title }}</a></li>
-    <p>Note: {{ com.note|markdown_safe }}</p>
+    <p>Note: {{ com.note }}</p>
     {% endfor %}
     </ul>
 {% else %}
