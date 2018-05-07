@@ -8,6 +8,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'^manuscripts', views.ManuscriptViewSet)
 router.register(r'^texts', views.TextViewSet)
+router.register(r'^content', views.ManuscriptContentViewSet)
 
 
 app_name = 'api'

@@ -73,7 +73,6 @@ class Text(BaseModel):
         verbose_name_plural = 'Texts'
         ordering = ['author', 'title', 'modified']
 
-
     def clean(self):
         if self.date and self.saeculo == '':
             self.saeculo = set_saeculo(self)
@@ -95,8 +94,6 @@ class Text(BaseModel):
                 self.mora_reference = reference_base + '0' + reference_number + reference_suffix
             elif len(reference_number) == 1:
                 self.mora_reference = reference_base + '00' + reference_number + reference_suffix
-
-
 
     def __str__(self):
         if self.title_addon:

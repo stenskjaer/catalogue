@@ -36,6 +36,7 @@ class Reproduction(BaseModel):
     def __str__(self):
         return '%s %s' % (self.archive, self.referencenumber)
 
+
 class ReproductionWishlist(BaseModel):
     manuscript = models.ForeignKey('Manuscript')
     folio_range = models.CharField(max_length=100, blank=True, null=True)

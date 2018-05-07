@@ -1,12 +1,20 @@
 from rest_framework import viewsets
 
 # Serializers
-from api.serializers import ManuscriptSerializer, TextSerializer
+from api.serializers import ManuscriptSerializer, TextSerializer, ContentSerializer
 
 # Models
-from manuscripts.models import Manuscript
+from manuscripts.models import Manuscript, ManuscriptContentCommentary
 from commentaries.models import Text
 
+
+class ManuscriptContentViewSet(viewsets.ModelViewSet):
+    """
+    Endpoint returning the content of manuscripts.
+    """
+    queryset = ManuscriptContentCommentary.objects.all()
+    serializer_class = ContentSerializer
+    
 
 class ManuscriptViewSet(viewsets.ModelViewSet):
     """
